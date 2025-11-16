@@ -197,6 +197,7 @@ Support the Project
 If you find this useful, please consider giving the repository a Star ⭐ to support its growth.
 
 
+<div dir="rtl" style="text-align: right; font-family: Tahoma, Arial, sans-serif;">
 
 
 # Maktab
