@@ -27,7 +27,7 @@ Computational Thinking
 
 Git & GitHub (Beginner → Advanced)
 
- Programming Languages
+ ## Programming Languages
 
 The following list will expand with links as lessons are added:
 
