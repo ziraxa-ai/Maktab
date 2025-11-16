@@ -167,7 +167,6 @@ Grow a strong community of motivated developers
 
 Contributions are welcome!
 
-Fork the repository
 
 Create your branch
 
@@ -272,7 +271,7 @@ Maktab با هدف ایجاد یک مرجع کامل و اصولی برای یا
 
 تغییرات خود را اعمال کنید
 
-Pull Request ارسال کنید
+یک Pull Request ارسال کنید
 
 نام شما در Contributors ثبت خواهد شد
 
