@@ -151,7 +151,7 @@ The following list will expand with links as lessons are added:
         ├── intermediate/
         └── advanced/
 
-Long-Term Goals
+## Long-Term Goals
 
 Build the most complete Persian/English programming education repository
 
