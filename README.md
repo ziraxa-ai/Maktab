@@ -163,7 +163,7 @@ Create video lessons in the future
 
 Grow a strong community of motivated developers
 
- Contributing
+ ## Contributing
 
 Contributions are welcome!
 
