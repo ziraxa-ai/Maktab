@@ -4,7 +4,7 @@
 
 A complete, structured, and practical learning path for every programming language and framework — free and open-source.
 
- Project Vision
+## Project Vision
 
 Maktab aims to become a comprehensive and structured reference for learning programming from the ground up.
 This repository covers everything from absolute basics to advanced concepts, designed both for:
@@ -13,7 +13,7 @@ Strengthening my own (Taha Saadat’s) knowledge through teaching
 
 Helping beginners and developers learn programming the right way and grow their skills
 
- Learning Path Overview
+ ## Learning Path Overview
 
 The project is organized into structured learning tracks:
 
@@ -31,99 +31,100 @@ Git & GitHub (Beginner → Advanced)
 
 The following list will expand with links as lessons are added:
 
-Frontend
+### AI & Machine Learning
 
-HTML5
+    Python Basics
+    
+    NumPy
+    
+    Pandas
+    
+    Matplotlib
+    
+    Scikit-Learn
+    
+    Deep Learning (PyTorch / TensorFlow)
+    
+    LLMs, AI Agents & Practical Projects
+    
 
-CSS3
+### Frontend
 
-JavaScript
+    HTML5
+    
+    CSS3
+    
+    JavaScript
+    
+    TypeScript
+    
+    SASS / SCSS
 
-TypeScript
+### Frontend Frameworks
 
-SASS / SCSS
+    React.js
+    
+    Next.js
+    
+    Vue.js
+    
+    Nuxt.js
+    
+    Svelte
 
-Frontend Frameworks
+### Backend
+    
+    Python
+    
+    JavaScript (Node.js)
+    
+    Go
+    
+    PHP
+    
+    Java
+    
+    C#
 
-React.js
+### Backend Frameworks
 
-Next.js
+    Django
+    
+    Flask
+    
+    FastAPI
+    
+    Express.js
+    
+    Nest.js
+    
+    Spring Boot
+    
+    Laravel
+    
+### Mobile Development
+    
+    Flutter
+    
+    React Native
+    
+    Kotlin
+    
+    Swift
 
-Vue.js
+### DevOps & Tools
+    
+    Linux Fundamentals
+    
+    Docker
+    
+    Kubernetes
+    
+    CI/CD
+    
+    Cloud (AWS / GCP / Azure)
 
-Nuxt.js
-
-Svelte
-
-Backend
-
-Python
-
-JavaScript (Node.js)
-
-Go
-
-PHP
-
-Java
-
-C#
-
-Backend Frameworks
-
-Django
-
-Flask
-
-FastAPI
-
-Express.js
-
-Nest.js
-
-Spring Boot
-
-Laravel
-
-Mobile Development
-
-Flutter
-
-React Native
-
-Kotlin
-
-Swift
-
-AI & Machine Learning
-
-Python Basics
-
-NumPy
-
-Pandas
-
-Matplotlib
-
-Scikit-Learn
-
-Deep Learning (PyTorch / TensorFlow)
-
-LLMs, AI Agents & Practical Projects
-
-DevOps & Tools
-
-Linux Fundamentals
-
-Docker
-
-Kubernetes
-
-CI/CD
-
-Cloud (AWS / GCP / Azure)
-
- Repository Structure
+ ## Repository Structure
     
     Maktab/
     │
@@ -204,13 +205,13 @@ From Zero to Hero Programming Academy
 آموزش اصولی، رایگان و گام‌به‌گام تمام زبان‌ها و فریم‌ورک‌های برنامه‌نویسی
 پروژه‌ای برای ایجاد انقلابی در یادگیری برنامه‌نویسی برای همه
 
- هدف پروژه
+ ## هدف پروژه
 
 Maktab با هدف ایجاد یک مرجع کامل و اصولی برای یادگیری برنامه‌نویسی ساخته شده است.
 در این ریپازیتوری، تمامی مفاهیم از کاملاً مقدماتی تا پیشرفته به صورت مرحله‌به‌مرحله آموزش داده خواهد شد؛
 تا هم خود من (طاها سعادت) بتوانم تسلط بیشتری پیدا کنم و هم همه بتوانند فرصتی برای یادگیری عمیق، صحیح و حرفه‌ای داشته باشند.
 
- مسیر یادگیری
+ ## مسیر یادگیری
 
 در این پروژه، آموزش‌ها در قالب مسیرهای مشخص ارائه می‌شود:
 
@@ -224,103 +225,7 @@ Maktab با هدف ایجاد یک مرجع کامل و اصولی برای یا
 
  Git & GitHub مقدماتی تا پیشرفته
 
- زبان‌های برنامه‌نویسی
-
-لیست زیر به مرور تکمیل و لینک‌دهی خواهد شد:
-
-Frontend
-
-HTML5
-
-CSS3
-
-JavaScript
-
-TypeScript
-
-SASS / SCSS
-
-Frontend Frameworks
-
-React.js
-
-Next.js
-
-Vue.js
-
-Nuxt.js
-
-Svelte
-
-Backend
-
-Python
-
-JavaScript (Node.js)
-
-Go
-
-PHP
-
-Java
-
-C#
-
-Backend Frameworks
-
-Django
-
-Flask
-
-FastAPI
-
-Express.js
-
-Nest.js
-
-Spring Boot
-
-Laravel
-
-Mobile Development
-
-Flutter
-
-React Native
-
-Kotlin
-
-Swift
-
-AI & Machine Learning
-
-Python Basics
-
-NumPy
-
-Pandas
-
-Matplotlib
-
-Scikit-Learn
-
-Deep Learning (PyTorch / TensorFlow)
-
-LLMs, AI Agents و پروژه‌های عملی
-
-DevOps & Tools
-
-Linux Basics
-
-Docker
-
-Kubernetes
-
-CI/CD
-
-Cloud (AWS / GCP / Azure)
-
- ساختار ریپازیتوری
+ ## ساختار ریپازیتوری
     
     Maktab/
     │
@@ -347,7 +252,7 @@ Cloud (AWS / GCP / Azure)
         ├── intermediate/
         └── advanced/
 
-اهداف بلندمدت پروژه
+## اهداف بلندمدت پروژه
 
 ساخت کامل‌ترین مرجع فارسی برای یادگیری تمام زبان‌ها
 
@@ -359,7 +264,7 @@ Cloud (AWS / GCP / Azure)
 
 رشد جامعه‌ای از برنامه‌نویسان مشتاق و حرفه‌ای
 
- مشارکت در پروژه (Contribute)
+ ## مشارکت در پروژه (Contribute)
 
 در صورت تمایل برای مشارکت:
 
@@ -370,7 +275,7 @@ Pull Request ارسال کنید
 
 نام شما در Contributors ثبت خواهد شد
 
- ارتباط با ما
+ ## ارتباط با ما
  طاها سعادت – مؤسس Ziraxa & Maktab
     
      Email: ziraxa.ai@gmail.com
@@ -384,6 +289,6 @@ Pull Request ارسال کنید
      Twitter/X: @Ziraxa_ai
     
 
- حمایت از پروژه
+ ## حمایت از پروژه
 
 با Star ⭐ کردن این ریپازیتوری، به رشد آموزش و ادامه این مسیر کمک می‌کنید.
