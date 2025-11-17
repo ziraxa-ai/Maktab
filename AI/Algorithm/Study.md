@@ -1,5 +1,7 @@
 <div dir="rtl" style="text-align: right; font-family: Tahoma, Arial, sans-serif;">
+    
 # الگوریتم چیست؟ — مقدمات تفکر الگوریتمی برای مهندسان هوش مصنوعی
+
 Algorithmic Thinking for AI Engineers
 ## مقدمه
 
