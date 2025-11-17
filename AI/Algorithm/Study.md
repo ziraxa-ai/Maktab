@@ -146,6 +146,7 @@ Algorithmic Thinking for AI Engineers
 
 در پایان، بزرگ‌ترین مقدار به‌دست می‌آید.
 
+</div>
 #### Pseudo-Code
 
     Algorithm FindMax(list):
@@ -164,6 +165,8 @@ Algorithmic Thinking for AI Engineers
                 max_value = num
         return max_value
 
+<div dir="rtl" style="text-align: right; font-family: Tahoma, Arial, sans-serif;">
+    
 ## چرا تفکر الگوریتمی برای مهندسان AI حیاتی است؟
 
 باعث می‌شود مسائل پیچیدهٔ هوش مصنوعی را خرد و قابل حل کنیم.
@@ -223,6 +226,8 @@ Search Algorithms
 
 برای هر سه تمرین، الگوریتم را به شکل زیر بنویسید:
 
+</div>
+    
     Algorithm Name(input):
         Step 1: ...
         Step 2: ...
@@ -230,7 +235,9 @@ Search Algorithms
         return result
 
 _____________________________________________________________________________________________________________________________________________________________________________________________________
-# چرا پیچیدگی زمانی مهم است؟ — Big O با مثال‌های ساده
+<div dir="rtl" style="text-align: right; font-family: Tahoma, Arial, sans-serif;">
+
+# چرا پیچیدگی زمانی مهم است؟ 
 
 #### روز دوم — پست آموزشی
 
@@ -249,7 +256,7 @@ Big O یک نماد ریاضی است که نشان می‌دهد یک الگو�
 
 Big O اندازه‌گیری می‌کند اجرای الگوریتم چطور با افزایش ورودی رشد می‌کند.
 
-🧩 رایج‌ترین انواع پیچیدگی زمانی
+### رایج‌ترین انواع پیچیدگی زمانی
 ### 1️.O(1) — زمان ثابت (Constant Time)
 
 زمان اجرا به اندازه ورودی وابسته نیست.
@@ -329,7 +336,8 @@ O(1)  →  O(log n)  →  O(n)  →  O(n log n)  →  O(n²)  →  O(2ⁿ)  → 
 برای ۵ الگوریتم زیر، پیچیدگی زمانی را حدس بزن:
 
 ### 1. پیدا کردن بزرگ‌ترین عدد یک آرایه
-        
+</div>
+
         max_value = arr[0]
         for num in arr:
             if num > max_value:
