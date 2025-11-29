@@ -15,11 +15,35 @@ if score >= 90:
     print("Grade: A")
 if score >= 75:
     print("Grade: B")
-if score >= 60:
+if score >= 50:
     print("Grade: C")
 else:
     print("Grade: F")
 
 
 # EX 03
+
+score = int(input("Score: "))
+
+if score >= 90:
+    print("Grade: A")
+elif score >= 75:
+    print("Grade: B")
+elif score >= 50:
+    print("Grade: C")
+else:
+    print("Grade: F")
+
+
+#EX 04
+
+print("Welcome to contact list .")
+
+name = input("Enter name: ")
+family = input("Enter family: ")
+age = int(input("Enter age: "))
+
+print("Name:", name)
+print("Family:", family)
+print("Age:", age)
 
