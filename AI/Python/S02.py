@@ -39,11 +39,33 @@ else:
 
 print("Welcome to contact list .")
 
-name = input("Enter name: ")
-family = input("Enter family: ")
-age = int(input("Enter age: "))
+contact_name = input("Enter contact name: ")
+contact_family = input("Enter contact family: ")
+contact_age = int(input("Enter contact age: "))
 
-print("Name:", name)
-print("Family:", family)
-print("Age:", age)
+license = input("View profile? (yes/no): ")
 
+if license == "yes":
+    print("Contact Name:", contact_name)
+    print("Contact Family:", contact_family)
+    print("Contact Age:", contact_age)
+
+elif license == "no":
+    print("Profile viewing canceled.")
+
+else:
+    print("Invalid input. Please enter 'yes' or 'no'.")
+
+
+
+#EX 05
+
+
+print("Welcome to contact list .")
+
+contact_name = input("Enter contact name: ")
+contact_family = input("Enter contact family: ")
+contact_age = int(input("Enter contact age: "))
+
+while 
+    license = input("View profile? (yes/no): ")
