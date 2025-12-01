@@ -1,4 +1,4 @@
-#Comprehensive Python Basic Artificial Intelligence Training Course
+# Comprehensive Python Basic Artificial Intelligence Training Course
 
 # دوره آموزش جامع پایتون مقدماتی هوش مصنوعی
 
