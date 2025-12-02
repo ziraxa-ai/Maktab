@@ -75,43 +75,64 @@ while True:
         input("Press Enter to return to main menu.")
 
     elif more == "3":
-        os.system('cls')
-        with open('products.csv', mode='r') as file:
-            reader = csv.reader(file)
-            next(reader)  # Skip header row
-            products = [row for row in reader]
+        pass
+        # os.system('cls')
+        # with open('products.csv', mode='r') as file:
+        #     reader = csv.reader(file)
+        #     next(reader)  # Skip header
+        #     products = [row for row in reader]
 
-        if products:
-            products.sort(key=lambda x: float(x[4]))
-            for product in products:
-                print(f"ID: {product[0]}, Name: {product[1]}, Category: {product[2]}, Quantity: {product[3]}, Price: {product[4]}")
-        else:
-            print("No products available.")
-        input("Press Enter to return to main menu.")
+        # if products:
+        #         # Bubble Sort بر اساس ستون 4 (قیمت)
+        #     n = len(products)
+        #     for i in range(n - 1):
+        #         for j in range(0, n - i - 1):
+        #             if float(products[j][4]) > float(products[j + 1][4]):
+        #                 products[j], products[j + 1] = products[j + 1], products[j]
+
+        #         # چاپ محصولات
+        #     for product in products:
+        #         print(f"ID: {product[0]}, Name: {product[1]}, Category: {product[2]}, Quantity: {product[3]}, Price: {product[4]}")
+        # else:
+        #     print("No products available.")
+
+        # input("Press Enter to return to main menu.")
+
 
 
     elif more == "4":
-        pass
+        os.system('cls')
+        products = []
+        with open('products.csv', mode='r') as file:
+            reader = csv.reader(file)
+            next(reader)  # Skip header row
+            for row in reader:
+                products.append(row)
+        if len(products) > 0:
+            cheapest_product = min(products, key=lambda x: float(x[4]))
+            most_expensive_product = max(products, key=lambda x: float(x[4]))
+
+            print(f"Cheapest Product: ID: {cheapest_product[0]}, Name: {cheapest_product[1]}, Category: {cheapest_product[2]}, Quantity: {cheapest_product[3]}, Price: {cheapest_product[4]}")
+            print(f"Most Expensive Product: ID: {most_expensive_product[0]}, Name: {most_expensive_product[1]}, Category: {most_expensive_product[2]}, Quantity: {most_expensive_product[3]}, Price: {most_expensive_product[4]}")
+        else:
+            print("No products available.")
+        input("Press Enter to return to main menu.")
 
     elif more == "5":
         pass
 
     elif more == "6":
-        if len(products) == 0:
-            print("No products available.")
+        products = []
+        os.system('cls')
+        with open('products.csv', mode='r') as file:
+            reader = csv.reader(file)
+            next(reader)  # Skip header row
+            for row in reader:
+                products.append(row)
+        if len(products) > 0:
+            for product in products:
+                print(f"ID: {product[0]}, Name: {product[1]}, Category: {product[2]}, Quantity: {product[3]}, Price: {product[4]}")
         
         else:
-            products = []
-            os.system('cls')
-            with open('products.csv', mode='r') as file:
-                reader = csv.reader(file)
-                next(reader)  # Skip header row
-                for row in reader:
-                    products.append(row)
-            if len(products) > 0:
-                for product in products:
-                    print(f"ID: {product[0]}, Name: {product[1]}, Category: {product[2]}, Quantity: {product[3]}, Price: {product[4]}")
-            
-            else:
-                print("No products available.")
-            input("Press Enter to return to main menu.")
+            print("No products available.")
+        input("Press Enter to return to main menu.")
