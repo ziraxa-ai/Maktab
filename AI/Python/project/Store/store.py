@@ -1,5 +1,4 @@
 
-
 import csv
 import os
 
@@ -114,12 +113,11 @@ while True:
             os.system("cls")
             another = input("From the options\n" \
             "a.Average\n" \
-            "b.Most expensive\n" \
-            "c.Cheapest \n" \ 
-            "d.Sum of products and prices (asset)\n" \
-            "e.Sales status (chart)\n" \
-            "f.Chatbot\n" \
-            "Select the desired option(a, b, c, d, e, f):")
+            "b.Most expensive and Cheapest\n" \
+            "c.Sum of products and prices (asset)\n" \
+            "d.Sales status (chart)\n" \
+            "e.Chatbot\n" \
+            "Select the desired option(a, b, c, d, e):")
 
             if another == "a":
 
@@ -150,11 +148,44 @@ while True:
                         products.append(row)
 
                     if len(products) > 0:
-                        
+                        cheapest_product = products[0]
+                        most_expensive_product = products[0]
 
+                        for p in products:
+                            price = float(p[4])
+
+                            if price < float(cheapest_product[4]):
+                                cheapest_product = p
+
+                            if price > float(most_expensive_product[4]):
+                                most_expensive_product = p
+
+                        print(f"Cheapest Product: ID: {cheapest_product[0]}, Name: {cheapest_product[1]}, Category: {cheapest_product[2]}, Quantity: {cheapest_product[3]}, Price: {cheapest_product[4]}")
+                        print(f"Most Expensive Product: ID: {most_expensive_product[0]}, Name: {most_expensive_product[1]}, Category: {most_expensive_product[2]}, Quantity: {most_expensive_product[3]}, Price: {most_expensive_product[4]}")
+
+                    else:
+                        input("NO products available.\n"
+                            "press Enter to return to main menu .")
             
             elif another == "c":
-                pass
+                os.system("cls")
+                products = []
+
+                with open ("products.csv", mode="r") as file:
+                    reader = reader(file)
+                    next(reader)
+
+                    sum_quantity = 0
+                    sum_prices = 0
+                    for row in reader:
+                        products.append(row)
+
+                    for product in products:
+                        sum_quantity += product[3]
+                        sum_prices += product[4]
+
+                    print(f"Total price of products: {sum_prices}")
+                    print(f"Total number of products: {sum_quantity}")
 
             elif another == "d":
                 pass
@@ -162,12 +193,11 @@ while True:
             elif another == "e":
                 pass
 
-            elif another == "f":
-                pass
 
             else:
                         input("Please choose between (a, b, c, d, e, f) \n"\
         "Press Enter to return to main menu.")                
+
 
     elif more == "3":
         pass
