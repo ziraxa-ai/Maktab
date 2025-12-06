@@ -200,7 +200,24 @@ while True:
 
 
     elif more == "3":
-        pass
+        os.system("cls")
+        while True:
+            another = input("Sort by:\n" \
+            "a. High to Low \n" \
+            "b. Low to High\n" \
+            "c. By Price")
+
+            if another == "a":
+                pass
+
+            elif another == "b":
+                pass
+
+            elif another == "c":
+                pass
+
+            else:
+                pass
 
 
     elif more == "4":
