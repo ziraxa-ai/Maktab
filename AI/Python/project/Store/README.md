@@ -1,1 +1,3 @@
-# Store
+# store management program
+
+
