@@ -137,15 +137,7 @@ while True:
                     "Press Enter to return to main menu.")
 
             elif another == "b":
-                os.system("cls")
-                products = []
 
-                with open("products.csv", mode = "r") as file:
-                    reader = csv.reader(file)
-                    next(reader)
-
-                    for row in reader:
-                        products.append(row)
 
                     if len(products) > 0:
                         cheapest_product = products[0]
@@ -205,15 +197,19 @@ while True:
             another = input("Sort by:\n" \
             "a. High to Low \n" \
             "b. Low to High\n" \
-            "c. By Price")
+            "c. By Price\n" \
+            "d. By name")
 
             if another == "a":
-                pass
+                
 
             elif another == "b":
                 pass
 
             elif another == "c":
+                pass
+
+            elif another == "d":
                 pass
 
             else:
