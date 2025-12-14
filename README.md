@@ -35,9 +35,7 @@ The following list will expand with links as lessons are added:
 
     Python Basics
     
-    NumPy
-    
-    Pandas
+    python advance(NumPy, Pandas)
     
     Matplotlib
     
