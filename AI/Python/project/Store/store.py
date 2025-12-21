@@ -193,16 +193,29 @@ while True:
 
     elif more == "3":
         os.system("cls")
+
+        products = []
+        with open("products.csv", mode="r") as file:
+            reader = csv.reader(file)
+            next(reader)
+
+            for row in reader:
+                products.append(row)
+
         while True:
             another = input("a. High to Low \n" \
             "b. Low to High\n" \
             "c. By Price\n" \
             "d. By name")
-
+            
             if another == "a":
                 while True:
                     os.system("cls")
-                    products.sort(key=lambda x: float(x[4]), reverse=True)
+
+                    for i in range(len(products)):
+                        for j in range(i + 1, len(products)):
+                            if float(products[i][4]) < float(products[j][4]):
+                                products[i], products[j] = products[j], products[i]
 
                     print("Products sorted from high to low price:")
                     for product in products:
@@ -213,7 +226,13 @@ while True:
             elif another == "b":
                 while True:
                     os.system("cls")
-                    products.sort(key=lambda x: float(x[4]))
+
+                    for i in range(len(products)):
+                        for j in range(i + 1, len(products)):
+                            # مقایسه قیمت‌ها
+                            if float(products[i][4]) > float(products[j][4]):
+                                # جابه‌جایی محصولات
+                                products[i], products[j] = products[j], products[i]
 
                     print("Products sorted from low to high price:")
                     for product in products:
@@ -223,25 +242,22 @@ while True:
 
             elif another == "c":
                 while True:
+                    sort_price = input("Enter the price to sort by: ")
                     os.system("cls")
-                    products.sort(key=lambda x: float(x[4]))
-
-                    print("Products sorted by price:")
-                    for product in products:
-                        print(product)
-
-                    break
+                    filtered_products = [product for product in products if float(product[4]) == float(sort_price)]
+                    print(f"Products with price {sort_price}:")
+                    for product in filtered_products:
+                        print(product)  
 
             elif another == "d":
+                sort_name = input("Enter the name to sort by: ")
                 while True:
                     os.system("cls")
-                    products.sort(key=lambda x: x[1])
-
-                    print("Products sorted by name:")
                     for product in products:
-                        print(product)
-
-                    break
+                        for i in range(len(products)):
+                            if products[i][1] == product[1]:
+                                print(product)
+                    break   
 
             else:
                 input("Please choose between (a, b, c, d)\n"\
@@ -250,28 +266,80 @@ while True:
 
     elif more == "4":
         products = []
-
         with open("products.csv", mode="r") as file:
-            reader = reader(file)
+            reader = csv.reader(file)
+            next(reader)
+
+            for row in reader:
+                products.append(row)
+        while True:
+            another = input("a. Edit product\n" \
+            "b. Delete product\n" \
+            "c. View product details\n")
+
+            if another == "a":
+                product_id = input("Enter product ID to edit: ")
+                for product in products:
+                    if product[0] == product_id:
+                        new_name = input("Enter new product name: ")
+                        new_price = input("Enter new product price: ")
+                        new_quantity = input("Enter new product quantity: ")
+                        product[1] = new_name
+                        product[4] = new_price
+                        product[3] = new_quantity
+                        print("Product updated successfully.")
+                        break
+                else:
+                    print("Product not found.")
+
+            elif another == "b":
+                product_id = input("Enter product ID to delete: ")
+                for product in products:
+                    if product[0] == product_id:
+                        products.remove(product)
+                        print("Product deleted successfully.")
+                        break
+                else:
+                    print("Product not found.")
+
+            elif another == "c":
+                product_id = input("Enter product ID to view details: ")
+                for product in products:
+                    if product[0] == product_id:
+                        print("Product Details:")
+                        print(f"ID: {product[0]}")
+                        print(f"Name: {product[1]}")
+                        print(f"Price: {product[4]}")
+                        print(f"Quantity: {product[3]}")
+                        break
+                else:
+                    print("Product not found.")
+
+            else:
+                input("Please choose between (a, b, c)\n"\
+        "Press Enter to return to main menu.")
+
+
+    elif more == "5":
+        os.system("cls")
+        products = []
+        with open("products.csv", mode="r") as file:
+            reader = csv.reader(file)
             next(reader)
 
             for row in reader:
                 products.append(row)
 
-        while True:
-            os.system("cls")
-            print("Products:")
-            for product in products:
-                print(product)
+        print("All Products:")
+        for product in products:
+            print(f"ID: {product[0]}, Name: {product[1]}, Category: {product[2]}, Quantity: {product[3]}, Price: {product[4]}, Country: {product[5]}")
 
-            break
-
-    elif more == "5":
-        pass
+        input("Press Enter to return to main menu.")
 
 
     elif more == "6":
-        pass
+        print("Exiting the program. Goodbye!")
+        break
 
 
     else:
