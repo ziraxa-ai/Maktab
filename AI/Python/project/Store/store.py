@@ -194,31 +194,77 @@ while True:
     elif more == "3":
         os.system("cls")
         while True:
-            another = input("Sort by:\n" \
-            "a. High to Low \n" \
+            another = input("a. High to Low \n" \
             "b. Low to High\n" \
             "c. By Price\n" \
             "d. By name")
 
             if another == "a":
-                
+                while True:
+                    os.system("cls")
+                    products.sort(key=lambda x: float(x[4]), reverse=True)
+
+                    print("Products sorted from high to low price:")
+                    for product in products:
+                        print(product)
+
+                    break
 
             elif another == "b":
-                pass
+                while True:
+                    os.system("cls")
+                    products.sort(key=lambda x: float(x[4]))
+
+                    print("Products sorted from low to high price:")
+                    for product in products:
+                        print(product)
+
+                    break
 
             elif another == "c":
-                pass
+                while True:
+                    os.system("cls")
+                    products.sort(key=lambda x: float(x[4]))
+
+                    print("Products sorted by price:")
+                    for product in products:
+                        print(product)
+
+                    break
 
             elif another == "d":
-                pass
+                while True:
+                    os.system("cls")
+                    products.sort(key=lambda x: x[1])
+
+                    print("Products sorted by name:")
+                    for product in products:
+                        print(product)
+
+                    break
 
             else:
-                pass
+                input("Please choose between (a, b, c, d)\n"\
+        "Press Enter to return to main menu.")
 
 
     elif more == "4":
-        pass
+        products = []
 
+        with open("products.csv", mode="r") as file:
+            reader = reader(file)
+            next(reader)
+
+            for row in reader:
+                products.append(row)
+
+        while True:
+            os.system("cls")
+            print("Products:")
+            for product in products:
+                print(product)
+
+            break
 
     elif more == "5":
         pass
