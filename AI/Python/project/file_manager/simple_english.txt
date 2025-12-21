@@ -1,0 +1,4 @@
+Python is a simple language.
+Python is powerful.
+Many people learn Python because Python is easy to read.
+This file is used for basic text processing practice.

@@ -1,0 +1,4 @@
+Python یک زبان محبوب است.
+Many developers use Python for data analysis.
+برنامه نویسی با Python لذت بخش است.
+Learning Python is a good choice.
