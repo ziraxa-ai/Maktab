@@ -1,7 +1,6 @@
 
-<div dir = "rtl">
-#  Excel برای مسیر هوش مصنوعی | Excel + Power Query (M) + VBA
-</div>
+#  آموزش Excel برای مسیر هوش مصنوعی | Excel + Power Query (M) + VBA
+
 
 > هر مسیر AI از داده شروع می‌شود، و هر داده‌ای اول بار در یک جدول دیده می‌شود.
 
