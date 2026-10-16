@@ -1,3 +1,5 @@
+
+# Table and Data Type
 **امروز** می خواهیم با Table آشنا بشویم و ببینیم با Range چه تفاوت هایی دارد .
 
 ### Range
