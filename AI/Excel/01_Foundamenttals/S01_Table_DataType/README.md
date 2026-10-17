@@ -200,3 +200,36 @@ Excel
 - `ISNUMBER` در هر دو حالت `TRUE` است.
 
 **نکته‌ی پروژه‌ی فارسی:** تاریخ شمسی تایپ‌شده را صرفاً به دلیل ظاهرش تاریخ معتبر اکسل فرض نکن. تبدیل و مدیریت آن را جداگانه بررسی خواهیم کرد.
+
+
+## تمرین عملی 
+
+ابتدا یک فایل با نام زیر می سازیم :
+
+       
+          W01_D01_BOQ_Foundation.xlsx
+
+و سپس سه شیت به نام های زیر می سازیم:
+
+
+         Raw
+         Clean
+         Lab
+
+داده‌‌های زیر را در سلول A1 شیت RAW می چسبانیم، فاصله مابین ستون ها **Tab** می نامیم.
+
+     ProjectID	ItemCode	Description	Quantity	UnitRate	Unit	Supplier
+     PRJ-01	B001	Excavation	120	15	m3	SUP-01
+     PRJ-01	B002	Concrete	80	95	m3	SUP-02
+     PRJ-01	B003	Rebar	1500	2	kg	SUP-03
+     PRJ-01	B004	Formwork	200	12	m2	SUP-01
+     PRJ-02	B005	Pipe	300	18	m	SUP-04
+     PRJ-02	B006	Valve	20	150	pcs	SUP-04
+     PRJ-02	B007	Cable	500	4	m	SUP-05
+     PRJ-02	B008	Panel	5	800	pcs	SUP-05
+     PRJ-03	B009	Pump	3	1200	pcs	SUP-06
+     PRJ-03	B010	Support	100	25	kg	SUP-03
+     PRJ-03	B011	Paint	250	6	m2	SUP-02
+     PRJ-03	B012	Insulation	180	10	m2	SUP-06
+
+     
