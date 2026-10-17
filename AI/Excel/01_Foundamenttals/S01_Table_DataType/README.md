@@ -256,8 +256,28 @@ D10 	'3
 3. از نوار بالا وارد Table Design نام جدولمون را tblBOQ بگذار.
 4. ستون جدید ایجاد کن و نامش را BudgetCost بگذار.
 5. در اولین سلول داده ستون جدید بنویس:
-      =[@Quantity]*[@UnitRate]
+   
+       =[@Quantity]*[@UnitRate]
 
-6. چک کن که فرمول در تمام سلول ها تا پایین Table قرار گرفته باشد.
+7. چک کن که فرمول در تمام سلول ها تا پایین Table قرار گرفته باشد.
 
    
+### حالا باید عددهای متنی را پیدا کنیم:
+
+1. دو ستون اضافه کن به نام‌های :
+   
+    Quantity_IsNumber
+    UnitRate_IsNumber
+
+2. فرمول هاشون به ترتیب:
+
+     = ISNUMBER([@Quantity])
+
+     = ISNUMBER([@UnitRate])
+
+   خروجی مورد انتظار:
+
+   - دو False در Quantity_IsNumber
+   - یک False در UnitRate_IsNumber
+   - حالا به کمک فیلتر Table این موارد را پیدا کن.
+   - 
