@@ -1,4 +1,4 @@
-# Maktab
+po# Maktab
  
  From Zero to Hero Programming Academy
 
@@ -8,7 +8,6 @@ A complete, structured, and practical learning path for every programming langua
 
 Maktab aims to become a comprehensive and structured reference for learning programming from the ground up.
 This repository covers everything from absolute basics to advanced concepts, designed both for:
-
 Strengthening my own (Taha Saadat’s) knowledge through teaching
 
 Helping beginners and developers learn programming the right way and grow their skills
