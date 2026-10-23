@@ -285,10 +285,9 @@ From Zero to Hero Programming Academy
     
      LinkedIn: Taha saadat
     
-     Twitter/X: @Ziraxa_ai
-    
+  
 
- ## حمایت از پروژه
+ ## حمایت از پروژه 
 
 با Star ⭐ کردن این ریپازیتوری، به رشد آموزش و ادامه این مسیر کمک می‌کنید.
 </div>
