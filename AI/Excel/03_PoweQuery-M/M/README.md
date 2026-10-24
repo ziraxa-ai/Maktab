@@ -305,10 +305,10 @@ in
 ابتدا فرض کنید داده‌های زیر را دریافت کرده اید،
 
 					
-					CustomerID	Name	City
-					1	" Ali "	" tehran "
-					2	" Sara "	"SHIRAZ "
-					3	"Reza "	" tehran"
+			CustomerID	Name	City
+			1	" Ali "	" tehran "
+			2	" Sara "	"SHIRAZ "
+			3	"Reza "	" tehran"
 
 
 علامت نقل‌قول در این نمایش برای قابل‌مشاهده‌شدن فاصله‌هاست.
@@ -323,59 +323,59 @@ in
 
 این مقدارها ممکن است به‌عنوان دسته‌های متفاوت دیده شوند:
 
-						tehran
-						TEHRAN
-						 tehran
+				tehran
+				TEHRAN
+				 tehran
 
 اگر قرار است شهر یک متغیر دسته‌ای باشد، چنین تفاوت‌هایی می‌توانند دسته‌های ظاهراً متفاوت اما معنایی یکسان بسازند.
 
 هدف ما:
 					
-					CustomerID 	Name 	City
-					1 	Ali 	TEHRAN
-					2 	Sara 	SHIRAZ
-					3 	Reza 	TEHRAN
+			CustomerID 	Name 	City
+			1 	Ali 	TEHRAN
+			2 	Sara 	SHIRAZ
+			3 	Reza 	TEHRAN
 
 ۱۹. کد کامل پروژه
 
 کد زیر را در یک Blank Query اجرا کن:
 
-				let
-				    Source = #table(
-				        type table [
-				            CustomerID = Int64.Type,
-				            Name = text,
-				            City = text
-				        ],
-				        {
-				            {1, "  Ali  ", " tehran "},
-				            {2, " Sara ", "SHIRAZ "},
-				            {3, "Reza   ", " tehran"}
-				        }
-				    ),
-			
-			    TrimmedNames = Table.TransformColumns(
-			        Source,
-			        {
-			            {"Name", Text.Trim, type text}
-			        }
-			    ),
-			
-			    TrimmedCities = Table.TransformColumns(
-			        TrimmedNames,
-			        {
-			            {"City", Text.Trim, type text}
-			        }
-			    ),
-			
-			    StandardizedCities = Table.TransformColumns(
-			        TrimmedCities,
-			        {
-			            {"City", Text.Upper, type text}
-			        }
-			    )
-			in
-			    StandardizedCities
+		let
+			Source = #table(
+				type table [
+					CustomerID = Int64.Type,
+					Name = text,
+					City = text
+				],
+				{
+					{1, "  Ali  ", " tehran "},
+					{2, " Sara ", "SHIRAZ "},
+					{3, "Reza   ", " tehran"}
+				}
+			),
+	
+		TrimmedNames = Table.TransformColumns(
+			Source,
+			{
+				{"Name", Text.Trim, type text}
+			}
+		),
+	
+		TrimmedCities = Table.TransformColumns(
+			TrimmedNames,
+			{
+				{"City", Text.Trim, type text}
+			}
+		),
+	
+		StandardizedCities = Table.TransformColumns(
+			TrimmedCities,
+			{
+				{"City", Text.Upper, type text}
+			}
+		)
+	in
+		StandardizedCities
 
 این مثال عمداً چند گام جدا دارد تا جریان تبدیل‌ها واضح باشد.
 
@@ -404,11 +404,11 @@ in
 بخش بعدی سطرهای جدول است:
 
                                                                     
-		{
-			{1, "  Ali  ", " tehran "},
-			{2, " Sara ", "SHIRAZ "},
-			{3, "Reza   ", " tehran"}
-		}
+	{
+		{1, "  Ali  ", " tehran "},
+		{2, " Sara ", "SHIRAZ "},
+		{3, "Reza   ", " tehran"}
+	}
 
 هر گروه داخلی، مقادیر یک سطر را به ترتیب ستون‌ها مشخص می‌کند.
 
@@ -416,12 +416,12 @@ in
 گام دوم: پاک‌سازی نام‌ها
 
 			
-			TrimmedNames = Table.TransformColumns(
-			    Source,
-			    {
-			        {"Name", Text.Trim, type text}
-			    }
-			)
+		TrimmedNames = Table.TransformColumns(
+			Source,
+			{
+				{"Name", Text.Trim, type text}
+			}
+		)
 
 معنی ساده:
 
@@ -431,7 +431,7 @@ in
 
 
 		{"Name", Text.Trim, type text}
-
+	
 		جزء 	معنی
 		"Name" 	نام ستون مورد نظر
 		Text.Trim 	تابع تبدیل هر مقدار
@@ -443,10 +443,10 @@ in
 
 خروجی این مرحله:
 			
-			CustomerID 	Name 	City
-			1 	Ali 	" tehran "
-			2 	Sara 	"SHIRAZ "
-			3 	Reza 	" tehran"
+		CustomerID 	Name 	City
+		1 	Ali 	" tehran "
+		2 	Sara 	"SHIRAZ "
+		3 	Reza 	" tehran"
 			
 
 هنوز ستون شهر پاک‌سازی نشده است.
