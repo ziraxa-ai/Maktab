@@ -303,11 +303,13 @@ in
 حالا کار اصلی ما شروع شد و آموزش از اینجا شیرین میشه، نوبت آن رسیده با هم یک تمرین عملی انجام بدهیم،
 
 ابتدا فرض کنید داده‌های زیر را دریافت کرده اید،
+
 					
 					CustomerID	Name	City
 					1	" Ali "	" tehran "
 					2	" Sara "	"SHIRAZ "
 					3	"Reza "	" tehran"
+
 
 علامت نقل‌قول در این نمایش برای قابل‌مشاهده‌شدن فاصله‌هاست.
 
@@ -321,18 +323,19 @@ in
 
 این مقدارها ممکن است به‌عنوان دسته‌های متفاوت دیده شوند:
 
-                                                                    text
-tehran
-TEHRAN
- tehran
+						tehran
+						TEHRAN
+						 tehran
 
 اگر قرار است شهر یک متغیر دسته‌ای باشد، چنین تفاوت‌هایی می‌توانند دسته‌های ظاهراً متفاوت اما معنایی یکسان بسازند.
 
 هدف ما:
-CustomerID 	Name 	City
-1 	Ali 	TEHRAN
-2 	Sara 	SHIRAZ
-3 	Reza 	TEHRAN
+					
+					CustomerID 	Name 	City
+					1 	Ali 	TEHRAN
+					2 	Sara 	SHIRAZ
+					3 	Reza 	TEHRAN
+
 ۱۹. کد کامل پروژه
 
 کد زیر را در یک Blank Query اجرا کن:
