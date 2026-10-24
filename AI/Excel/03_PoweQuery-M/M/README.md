@@ -413,7 +413,8 @@ in
 هر گروه داخلی، مقادیر یک سطر را به ترتیب ستون‌ها مشخص می‌کند.
 
 نام Source یک نام قراردادی و رایج است، نه کلیدواژه ویژه زبان.
-گام دوم: پاک‌سازی نام‌ها
+
+### گام دوم: پاک‌سازی نام‌ها
 
 			
 		TrimmedNames = Table.TransformColumns(
@@ -450,3 +451,97 @@ in
 			
 
 هنوز ستون شهر پاک‌سازی نشده است.
+### گام سوم: پاک‌سازی فاصله‌های شهر
+
+		                                                                    
+		TrimmedCities = Table.TransformColumns(
+		    TrimmedNames,
+		    {
+		        {"City", Text.Trim, type text}
+		    }
+		)
+
+به اولین ورودی توجه کن:
+
+		
+		TrimmedNames
+
+ما از نتیجه گام قبلی شروع می‌کنیم، نه از داده خام.
+
+خروجی:
+		CustomerID 	Name 	City
+		1 	Ali 	tehran
+		2 	Sara 	SHIRAZ
+		3 	Reza 	tehran
+
+### گام چهارم: یکسان‌سازی حروف شهر
+
+		                                                                    
+		StandardizedCities = Table.TransformColumns(
+		    TrimmedCities,
+		    {
+		        {"City", Text.Upper, type text}
+		    }
+		)
+
+خروجی:
+		CustomerID 	Name 	City
+		1 	Ali 	TEHRAN
+		2 	Sara 	SHIRAZ
+		3 	Reza 	TEHRAN
+
+برای متن فارسی بزرگ و کوچک‌بودن حروف مطرح نیست؛ در داده فارسی معمولاً مسائلی مثل تفاوت ي و ی یا ك و ک اهمیت دارند که در درس توابع متنی بررسی می‌کنیم.
+انتخاب خروجی
+	
+	in
+	    StandardizedCities
+
+یعنی جدول حاصل از آخرین تبدیل را برگردان.
+
+نقشه وابستگی‌ها:
+
+		Source
+		   ↓
+		TrimmedNames
+		   ↓
+		TrimmedCities
+		   ↓
+		StandardizedCities
+		   ↓
+		خروجی Query
+
+#### آزمایش مهم: وابستگی اشتباه بساز و نتیجه را ببین
+در کد پروژه، ورودی TrimmedCities را از:
+
+		TrimmedNames
+
+به:
+
+		
+		Source
+
+تغییر بده:
+
+		
+		TrimmedCities = Table.TransformColumns(
+		    Source,
+		    {
+		        {"City", Text.Trim, type text}
+		    }
+		)
+
+چه اتفاقی می‌افتد؟
+
+    شهرها پاک‌سازی می‌شوند.
+    نام‌ها در خروجی نهایی دوباره فاصله اضافی دارند.
+
+چون مسیر خروجی اکنون این است:
+
+
+		Source → TrimmedCities → StandardizedCities
+
+گام TrimmedNames همچنان در کد وجود دارد، اما در مسیر وابستگی خروجی نیست.
+
+درس اصلی: صرفِ نوشتن یک گام به معنی اعمال‌شدن آن روی خروجی نیست؛ گام‌های بعدی باید از نتیجه آن استفاده کنند.
+
+بعد از مشاهده نتیجه، ورودی را دوباره به TrimmedNames برگردان.
