@@ -25,20 +25,27 @@ Excel
 
 قالب سفارشی زیر را اعمال کن:
 
-                                                                    text
-yyyy-mm-dd hh:mm
+```
+text
 
+yyyy-mm-dd hh:mm
+```
 آزمایش
 
 در A2 بنویس:
 
-                                                                    excel
-=DATE(2026,4,3)
+```
+Excel
 
+=DATE(2026,4,3)
+```
 سپس:
 
-                                                                    excel
+```
+Excel
+
 =ISNUMBER(A2)
+```
 
 باید TRUE شود. قالب A2 را بین General و Date تغییر بده: نمایش تغییر می‌کند، مقدار ذخیره‌شده نه.
 دو تله‌ی تاریخی
