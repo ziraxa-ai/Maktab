@@ -34,7 +34,7 @@
 Data → Get Data → From Other Source → Blank Query
 
 - سپس در پنجره Power Query Editor قرار میگیرید و مجددا :
-
+****
 Home → Advanced Editor
 
 ### در Power BI Desktop 
@@ -701,3 +701,29 @@ in
 ۱. متغیر یعنی یک نام برای یک مقدار
 
 مثال:
+
+
+
+```
+let
+    Price = 250,
+    Quantity = 4,
+    Total = Price * Quantity
+in
+    Total
+```
+خروجی:
+
+```
+1000
+```
+در این کد:
+```
+نام 	مقدار
+Price 	250
+Quantity 	4
+Total 	1000
+```
+در صحبت روزمره به این نام‌ها «متغیر» می‌گوییم. اما مدل دقیق‌تر در M این است:
+
+			هر نام به نتیجه یک عبارت متصل می‌شود؛ نه اینکه ظرفی باشد که مرتب مقدار تازه‌ای داخلش بریزیم.
