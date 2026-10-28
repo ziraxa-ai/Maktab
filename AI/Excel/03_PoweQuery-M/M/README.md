@@ -732,35 +732,35 @@ Total 	1000
 
 اگر سابقه Python داشته باشی، ممکن است انتظار داشته باشی این الگو کار کند:
 
-                                                                    powerquery
-let
-    Price = 100,
-    Price = Price + 20
-in
-    Price
+                                                                    
+	let
+	    Price = 100,
+	    Price = Price + 20
+	in
+	    Price
 
 این کد معتبر نیست؛ چون Price در همان بلوک let دو بار تعریف شده است.
 
 روش درست:
 
-                                                                    powerquery
-let
-    OriginalPrice = 100,
-    IncreasedPrice = OriginalPrice + 20
-in
-    IncreasedPrice
+                                                        
+	let
+		OriginalPrice = 100,
+		IncreasedPrice = OriginalPrice + 20
+	in
+		IncreasedPrice
 
 خروجی:
 
-                                                                    text
-120
+                                                                   
+	120
 
 کاربرد در پاک‌سازی داده
 
 به‌جای اینکه تصور کنی یک جدول را مرتب بازنویسی می‌کنی، این مدل را داشته باش:
 
-                                                                    text
-Source → CleanedData → FilteredData
+                                                
+	Source → CleanedData → FilteredData
 
 هر نام نماینده نتیجه یک تبدیل است.
 
