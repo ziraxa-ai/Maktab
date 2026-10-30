@@ -804,3 +804,153 @@ CustomerAge = "29"
 اولی عدد است؛ دومی متن.
 
 نام متغیر تعیین‌کننده نوع داده نیست؛ مقدار یا عبارت سمت راست اهمیت دارد.
+
+
+تمرین‌ها
+تمرین ۱: خروجی را پیش‌بینی کن
+
+                                                                    powerquery
+let
+    Score = 10,
+    score = 20,
+    SCORE = 30
+in
+    Score + SCORE
+
+خروجی چیست؟ آیا تعریف‌ها تکراری‌اند؟
+تمرین ۲: نام یا متن؟
+
+خروجی دو کد زیر چه تفاوتی دارد؟
+الف
+
+                                                                    powerquery
+let
+    #"Clean Name" = "Sara"
+in
+    #"Clean Name"
+
+ب
+
+                                                                    powerquery
+let
+    #"Clean Name" = "Sara"
+in
+    "Clean Name"
+
+تمرین ۳: سه ایراد را اصلاح کن
+
+                                                                    powerquery
+let
+    RawName = "  sara  ",
+    CleanName = text.trim(rawName)
+in
+    cleanName
+
+تمرین ۴: حذف تعریف تکراری
+
+این کد را با نام‌های معنادار اصلاح کن:
+
+                                                                    powerquery
+let
+    Amount = 500,
+    Amount = Amount * 0.90
+in
+    Amount
+
+خروجی باید 450 باشد.
+تمرین ۵: مقایسه شهر
+
+دو مقدار داریم:
+
+                                                                    text
+"  shiraz "
+"SHIRAZ"
+
+کدی بنویس که:
+
+    آن‌ها را در دو نام ذخیره کند.
+    فاصله‌های دو سرشان را حذف کند.
+    بدون حساسیت به حروف مقایسه کند.
+    مقدار true برگرداند.
+
+تمرین ۶: تغییر پروژه
+
+پروژه مشتریان را طوری تغییر بده که فقط مشتریان شیراز با سن حداقل ۴۰ را برگرداند.
+
+باید فقط دو تعریف تنظیمی را تغییر بدهی.
+
+خروجی مورد انتظار: سطر Reza.
+پاسخ تمرین‌ها
+پاسخ ۱
+
+                                                                    text
+40
+
+سه نام متفاوت داریم؛ اما این سبک نام‌گذاری برای پروژه واقعی مناسب نیست.
+پاسخ ۲
+
+الف:
+
+                                                                    text
+Sara
+
+ب:
+
+                                                                    text
+Clean Name
+
+در اولی به شناسه ارجاع داده‌ایم؛ در دومی متن ثابت برگردانده‌ایم.
+پاسخ ۳
+
+                                                                    powerquery
+let
+    RawName = "  sara  ",
+    CleanName = Text.Trim(RawName)
+in
+    CleanName
+
+سه اصلاح:
+
+    text.trim ← Text.Trim
+    rawName ← RawName
+    cleanName ← CleanName
+
+خروجی sara است؛ Text.Trim حروف را بزرگ نمی‌کند.
+پاسخ ۴
+
+                                                                    powerquery
+let
+    OriginalAmount = 500,
+    DiscountedAmount = OriginalAmount * 0.90
+in
+    DiscountedAmount
+
+پاسخ ۵
+
+                                                                    powerquery
+let
+    RawCity1 = "  shiraz ",
+    RawCity2 = "SHIRAZ",
+
+    CleanCity1 = Text.Trim(RawCity1),
+    CleanCity2 = Text.Trim(RawCity2),
+
+    AreEqual = Comparer.Equals(
+        Comparer.OrdinalIgnoreCase,
+        CleanCity1,
+        CleanCity2
+    )
+in
+    AreEqual
+
+پاسخ ۶
+
+دو تعریف ابتدای پروژه:
+
+                                                                    powerquery
+MinimumAge = 40,
+TargetCity = "SHIRAZ",
+
+خروجی:
+CustomerID 	Name 	Age 	City
+3 	Reza 	41 	Shiraz
