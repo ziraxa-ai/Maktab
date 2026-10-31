@@ -176,6 +176,566 @@ in
 
 **نکته :تابع Text.Trim فاصله‌های ابتدا و انتهای متن را حذف می‌کند.(فعلا فقط گوشه ذهنت باشه.)**
 
+### قوانین نام گذاری
+#### 1. نام‌های ساده
+برای شروع، این سبک را انتخاب کن:
+```
+	Source
+	CustomerName
+	CleanedData
+	MinimumAge
+	Sales2025
+	_Cache
+```
+**قاعده مهم:**
+- با حرف انگلیسی یا _ شروع کن.
+- بعد از آن از حرف ، عدد و _ استفاده کن .
+- فاصله نگذار.
+- از کلیدواژه های زبان به عنوان نام ساده استفاده نکن.
+
+**مثال مناسب:**
+```
+	let
+	    Sales2025 = 1200,
+	    Sales2026 = 1500,
+	    SalesGrowth = Sales2026 - Sales2025
+	in
+	    SalesGrowth
+```
+خروجی:
+
+					300
+
+#### 2. نام دارای فاصله
+اگر نام گام فاصله یا بعضی نویسه‌های خاص داشته باشد، از شناسه نقل‌قول‌شده استفاده می‌کنیم:
+
+                                                                    powerquery
+#"Customer Name"
+
+مثال کامل:
+
+                                                                    powerquery
+let
+    #"Raw Customer Name" = "  Sara  ",
+    #"Clean Customer Name" = Text.Trim(#"Raw Customer Name")
+in
+    #"Clean Customer Name"
+
+خروجی:
+
+                                                                    text
+Sara
+
+ساختار را دقیق ببین
+
+                                                                    powerquery
+#"Clean Customer Name"
+
+شامل:
+
+    علامت #
+    کوتیشن دوتایی
+    نام
+    کوتیشن دوتایی پایانی
+
+این نگارش، نام را به متن تبدیل نمی‌کند. هنوز یک شناسه است.
+نکته ظریف
+
+برای یک نام ساده هم می‌توان همین نگارش را استفاده کرد:
+
+                                                                    powerquery
+let
+    Price = 100
+in
+    #"Price"
+
+خروجی:
+
+                                                                    text
+100
+
+پس Price و #"Price" به همان نام اشاره می‌کنند.
+
+اما #"price" نام دیگری است، چون بزرگی و کوچکی حروف فرق دارد.
+
+کلیدواژه‌ها را نام متغیر قرار نده
+
+کلمه‌هایی مانند این‌ها نقش ویژه دارند:
+
+                                                                    powerquery
+let
+in
+if
+then
+else
+each
+true
+false
+null
+
+مثلاً این کد نادرست است:
+
+                                                                    powerquery
+let
+    if = 10
+in
+    if
+
+از نظر فنی می‌توان چنین نامی را نقل‌قول‌شده نوشت:
+
+                                                                    powerquery
+let
+    #"if" = 10
+in
+    #"if"
+
+اما این کار برای خوانایی مناسب نیست.
+
+بهتر:
+
+                                                                    powerquery
+let
+    Threshold = 10
+in
+    Threshold
+
+قاعده حرفه‌ای: نام باید مفهوم داده یا تبدیل را روشن کند، نه اینکه خواننده را درگیر قواعد ویژه زبان کند.
+۷. سبک نام‌گذاری پیشنهادی
+
+هر دو سبک زیر قابل استفاده‌اند:
+
+                                                                    powerquery
+CustomerName
+
+                                                                    powerquery
+customerName
+
+اولی معمولاً PascalCase و دومی camelCase نامیده می‌شود.
+
+برای این دوره از PascalCase استفاده می‌کنیم:
+
+                                                                    powerquery
+RawCustomerName
+CleanedCustomerName
+MinimumAge
+FilteredCustomers
+
+حساسیت به حروف
+۸. Price و price دو نام متفاوت‌اند
+
+M به بزرگی و کوچکی حروف حساس است.
+
+این کد را اجرا کن:
+
+                                                                    powerquery
+let
+    Price = 100,
+    price = 200
+in
+    Price + price
+
+خروجی:
+
+                                                                    text
+300
+
+تعریف دو نام بالا مجاز است، چون یکسان نیستند.
+
+اما استفاده از چنین نام‌هایی در پروژه واقعی توصیه نمی‌شود؛ تشخیص تفاوت آن‌ها دشوار است.
+
+بهتر:
+
+                                                                    powerquery
+let
+    OriginalPrice = 100,
+    UpdatedPrice = 200
+in
+    OriginalPrice + UpdatedPrice
+
+۹. خطای رایج: نام تعریف‌شده با نام استفاده‌شده فرق دارد
+
+کد خطادار:
+
+                                                                    powerquery
+let
+    CustomerName = "Sara"
+in
+    customerName
+
+ما CustomerName را تعریف کرده‌ایم، ولی customerName را درخواست کرده‌ایم.
+
+نسخه درست:
+
+                                                                    powerquery
+let
+    CustomerName = "Sara"
+in
+    CustomerName
+
+هنگام دیدن خطای «نام شناخته نشد»، این سه مورد را بررسی کن:
+
+    آیا نام واقعاً تعریف شده است؟
+    آیا املای آن دقیقاً یکی است؟
+    آیا بزرگی و کوچکی حروف دقیقاً مطابقت دارد؟
+
+نام توابع هم حساس است
+
+درست:
+
+                                                                    powerquery
+Text.Trim
+
+نادرست:
+
+                                                                    powerquery
+text.trim
+Text.trim
+TEXT.TRIM
+
+مثال:
+
+                                                                    powerquery
+let
+    RawText = "  Data  ",
+    CleanText = Text.Trim(RawText)
+in
+    CleanText
+
+خروجی:
+
+                                                                    text
+Data
+
+نام تابع را باید مطابق تعریف آن بنویسی.
+
+چند نمونه:
+
+                                                                    powerquery
+Text.Upper
+Text.Lower
+Text.Replace
+Table.SelectRows
+Table.TransformColumns
+
+کلیدواژه‌ها نیز شکل نوشتاری مشخص دارند
+
+در M این شکل‌ها درست هستند:
+
+                                                                    powerquery
+let
+in
+true
+false
+null
+
+این‌ها جایگزین کلیدواژه‌های بالا نیستند:
+
+                                                                    powerquery
+LET
+IN
+TRUE
+False
+NULL
+
+مثلاً:
+
+                                                                    powerquery
+let
+    IsActive = true
+in
+    IsActive
+
+درست است.
+
+ولی TRUE به‌خودی‌خود مقدار منطقی true محسوب نمی‌شود؛ ممکن است به‌عنوان نام تفسیر شود و اگر تعریف نشده باشد، خطا بدهد.
+
+چهار نگارش شبیه، چهار کاربرد متفاوت
+۱۲. تفاوت نام، متن و دسترسی به فیلد
+
+این بخش یکی از مهم‌ترین قسمت‌های درس است:
+نگارش 	معنی
+CustomerName 	ارجاع به یک نام
+"CustomerName" 	مقدار متنی
+#"Customer Name" 	ارجاع به نامی که فاصله دارد
+[CustomerName] 	دسترسی به فیلد در زمینه مناسب، مانند رکورد سطر
+
+بیاییم جداگانه بررسی کنیم.
+حالت اول: ارجاع به نام
+
+                                                                    powerquery
+let
+    CustomerName = "Sara"
+in
+    CustomerName
+
+خروجی:
+
+                                                                    text
+Sara
+
+حالت دوم: متن معمولی
+
+                                                                    powerquery
+let
+    CustomerName = "Sara"
+in
+    "CustomerName"
+
+خروجی:
+
+                                                                    text
+CustomerName
+
+چون بعد از in یک متن ثابت نوشته‌ایم، نه ارجاع به نام.
+حالت سوم: شناسه نقل‌قول‌شده
+
+                                                                    powerquery
+let
+    #"Customer Name" = "Sara"
+in
+    #"Customer Name"
+
+خروجی:
+
+                                                                    text
+Sara
+
+حالت چهارم: دسترسی به فیلد رکورد
+
+                                                                    powerquery
+let
+    Customer = [
+        CustomerName = "Sara",
+        Age = 29
+    ],
+    SelectedName = Customer[CustomerName]
+in
+    SelectedName
+
+خروجی:
+
+                                                                    text
+Sara
+
+اینجا Customer یک رکورد است؛ یعنی مجموعه‌ای از فیلدهای نام‌دار.
+
+عبارت:
+
+                                                                    powerquery
+Customer[CustomerName]
+
+یعنی:
+
+    مقدار فیلد CustomerName را از رکورد Customer بردار.
+
+فعلاً همین مقدار از رکوردها کافی است؛ بعداً مستقل و کامل یادشان می‌گیریم.
+
+نام ستون‌ها و فیلدها هم مهم است
+
+این مثال خطا دارد:
+
+                                                                    powerquery
+let
+    Customer = [
+        Name = "Sara",
+        Age = 29
+    ]
+in
+    Customer[name]
+
+چون رکورد فیلدی به نام Name دارد، نه name.
+
+نسخه درست:
+
+                                                                    powerquery
+in
+    Customer[Name]
+
+در توابع جدولی هم نام ستون را دقیق بنویس:
+
+                                                                    powerquery
+{"Name", Text.Trim, type text}
+
+اگر ستون Name باشد و "name" بدهی، به ستون دیگری اشاره کرده‌ای؛ در حالت پیش‌فرض بسیاری از این عملیات، نبودن ستون باعث خطا می‌شود.
+نکته مهم
+
+در عبارت بالا "Name" یک متن است، اما تابع از آن متن برای پیدا کردن ستون استفاده می‌کند.
+
+پس:
+
+    از نظر زبان: "Name" مقدار متنی است.
+    از نظر کاربرد تابع: نام ستون موردنظر را مشخص می‌کند.
+
+حساسیت نام‌ها با مقایسه متن فرق دارد
+۱۴. آیا "Tehran" و "TEHRAN" برابرند؟
+
+با عملگر برابری معمولی در M، خیر:
+
+                                                                    powerquery
+let
+    City1 = "Tehran",
+    City2 = "TEHRAN",
+    AreEqual = City1 = City2
+in
+    AreEqual
+
+خروجی:
+
+                                                                    powerquery
+false
+
+در خط زیر دو کاربرد = را می‌بینی:
+
+                                                                    powerquery
+AreEqual = City1 = City2
+
+    = اول: تعریف نام AreEqual.
+    = دوم: مقایسه دو مقدار.
+
+برای خوانایی می‌توانی بنویسی:
+
+                                                                    powerquery
+AreEqual = (City1 = City2)
+
+دو موضوع جدا
+
+۱. حساسیت شناسه‌ها:
+
+آیا City و city یک نام‌اند؟ خیر.
+
+۲. روش مقایسه داده‌های متنی:
+
+آیا می‌خواهیم "Tehran" و "TEHRAN" را از نظر کسب‌وکار یکسان بدانیم؟ شاید بله.
+
+روش مقایسه متن را می‌توان با امکانات مناسب تغییر داد؛ حساسیت نام متغیرها با این کار تغییر نمی‌کند.
+
+مقایسه متن بدون حساسیت به حروف
+
+برای مقایسه ترتیبی بدون حساسیت به بزرگی و کوچکی حروف:
+
+                                                                    powerquery
+let
+    City1 = "Tehran",
+    City2 = "TEHRAN",
+    AreEqual = Comparer.Equals(
+        Comparer.OrdinalIgnoreCase,
+        City1,
+        City2
+    )
+in
+    AreEqual
+
+خروجی:
+
+                                                                    powerquery
+true
+
+فعلاً این الگو را این‌طور بخوان:
+
+    دو متن را با مقایسه‌گری مقایسه کن که تفاوت حروف بزرگ و کوچک را نادیده می‌گیرد.
+
+این روش فاصله اضافه را حذف نمی‌کند.
+
+برای مثال:
+
+                                                                    text
+" Tehran "
+"TEHRAN"
+
+هنوز از نظر فاصله‌ها متفاوت‌اند.
+
+راه عملی برای این حالت:
+
+                                                                    powerquery
+let
+    RawCity1 = " Tehran ",
+    RawCity2 = "TEHRAN",
+
+    City1 = Text.Trim(RawCity1),
+    City2 = Text.Trim(RawCity2),
+
+    AreEqual = Comparer.Equals(
+        Comparer.OrdinalIgnoreCase,
+        City1,
+        City2
+    )
+in
+    AreEqual
+
+خروجی:
+
+                                                                    powerquery
+true
+
+    برای داده‌های زبانی پیچیده، انتخاب مقایسه‌گر و قواعد فرهنگ زبانی اهمیت دارد؛ OrdinalIgnoreCase راه‌حل همه تفاوت‌های نوشتاری نیست.
+
+محدوده نام‌ها یا Scope
+۱۶. هر نام در یک محدوده تعریف می‌شود
+
+نام‌های داخل یک let در محدوده همان عبارت در دسترس‌اند.
+
+مثال:
+
+                                                                    powerquery
+let
+    BasePrice = 100,
+
+    FinalPrice =
+        let
+            TaxRate = 0.10,
+            TaxAmount = BasePrice * TaxRate
+        in
+            BasePrice + TaxAmount
+in
+    FinalPrice
+
+خروجی:
+
+                                                                    text
+110
+
+چه اتفاقی افتاد؟
+
+در let بیرونی:
+
+                                                                    powerquery
+BasePrice
+FinalPrice
+
+تعریف شده‌اند.
+
+در let داخلی:
+
+                                                                    powerquery
+TaxRate
+TaxAmount
+
+تعریف شده‌اند.
+
+عبارت داخلی می‌تواند به نام بیرونی BasePrice دسترسی داشته باشد.
+
+اما TaxRate و TaxAmount بیرون از محدوده داخلی در دسترس نیستند.
+
+اگر خروجی بیرونی را به این تغییر بدهی:
+
+                                                                    powerquery
+in
+    TaxAmount
+
+نام پیدا نمی‌شود.
+مدل ذهنی
+
+                                                                    text
+محدوده بیرونی
+├── BasePrice
+└── FinalPrice
+    └── محدوده داخلی
+        ├── TaxRate
+        └── TaxAmount
+
+این مفهوم هنگام یادگیری توابع سفارشی بسیار مهم می‌شود.
+
+---
 
 ### ما می توانیم به دو حالت ساده و ویژه متغیرهامون رو نام گذاری کنیم.
 - نام ساده:
