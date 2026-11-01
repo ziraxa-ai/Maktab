@@ -1647,3 +1647,47 @@ in
 09123456789
 
     شماره تلفن را معمولاً متنی نگه دار؛ تبدیل آن به عدد می‌تواند صفر اول را حذف کند.
+Text.Replace به بزرگی و کوچکی حروف حساس است
+
+                                                                    powerquery
+let
+    OriginalText = "tehran, Tehran, TEHRAN",
+    UpdatedText = Text.Replace(
+        OriginalText,
+        "tehran",
+        "Shiraz"
+    )
+in
+    UpdatedText
+
+خروجی:
+
+                                                                    text
+Shiraz, Tehran, TEHRAN
+
+فقط tehran با همان شکل حروف جایگزین شد.
+اگر داده باید استاندارد شود
+
+می‌توانی ابتدا شکل حروف را یکسان کنی:
+
+                                                                    powerquery
+let
+    RawCity = "  Tehran  ",
+    StandardizedCity = Text.Upper(Text.Trim(RawCity)),
+    UpdatedCity = Text.Replace(
+        StandardizedCity,
+        "TEHRAN",
+        "THR"
+    )
+in
+    UpdatedCity
+
+خروجی:
+
+                                                                    text
+THR
+
+اما توجه کن:
+
+    Text.Replace پارامتر مقایسه‌گر برای نادیده‌گرفتن بزرگی و کوچکی حروف ندارد. یکسان‌کردن حروف قبل از جایگزینی نیز شکل متن خروجی را تغییر می‌دهد.
+
