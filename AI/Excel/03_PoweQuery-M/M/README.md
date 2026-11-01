@@ -1535,3 +1535,76 @@ Text.BetweenDelimiters
 اما برای استفاده عملی از آن‌ها، چند تابع مکمل را هم مرور می‌کنیم.
 
     مثال‌های مستقل را در Blank Query → Advanced Editor اجرا کن. این کدها هم در Excel Power Query و هم در Power BI قابل استفاده‌اند.
+
+جایگزینی و استانداردسازی متن
+۱. مرور ابزارهای پایه
+
+این توابع را کنار هم در نظر بگیر:
+تابع 	کاربرد
+Text.Trim 	حذف فاصله‌های ابتدا و انتهای متن
+Text.Clean 	حذف نویسه‌های کنترلی
+Text.Upper 	تبدیل حروف به بزرگ
+Text.Lower 	تبدیل حروف به کوچک
+Text.Replace 	جایگزینی بخشی از متن
+Text.BetweenDelimiters 	استخراج متن میان دو جداکننده
+
+مثال:
+
+                                                                    powerquery
+let
+    RawText = "  power query  ",
+    TrimmedText = Text.Trim(RawText),
+    UpperText = Text.Upper(TrimmedText)
+in
+    UpperText
+
+خروجی:
+
+                                                                    text
+POWER QUERY
+
+نکته مهم درباره Text.Trim
+
+این تابع فاصله‌های داخل متن را حذف نمی‌کند:
+
+                                                                    powerquery
+Text.Trim("  Ali   Ahmadi  ")
+
+خروجی:
+
+                                                                    text
+Ali   Ahmadi
+
+سه فاصله بین نام و نام خانوادگی همچنان باقی است.
+۲. ساختار Text.Replace
+
+ساختار فراخوانی:
+
+                                                                    powerquery
+Text.Replace(text, old, new)
+
+معنی ورودی‌ها:
+ورودی 	معنی
+text 	متن اصلی
+old 	بخشی که باید پیدا شود
+new 	متن جایگزین
+
+مثال:
+
+                                                                    powerquery
+let
+    OriginalText = "Excel is useful",
+    UpdatedText = Text.Replace(
+        OriginalText,
+        "Excel",
+        "Power Query"
+    )
+in
+    UpdatedText
+
+خروجی:
+
+                                                                    text
+Power Query is useful
+
+تابع متن اصلی را تغییر نمی‌دهد؛ یک مقدار متنی جدید برمی‌گرداند.
