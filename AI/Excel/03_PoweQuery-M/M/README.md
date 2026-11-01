@@ -1608,3 +1608,42 @@ in
 Power Query is useful
 
 تابع متن اصلی را تغییر نمی‌دهد؛ یک مقدار متنی جدید برمی‌گرداند.
+همه رخدادهای متن هدف جایگزین می‌شوند
+
+                                                                    powerquery
+let
+    ProductCode = "AB-12-CD-34",
+    StandardizedCode = Text.Replace(ProductCode, "-", "/")
+in
+    StandardizedCode
+
+خروجی:
+
+                                                                    text
+AB/12/CD/34
+
+هر سه خط تیره جایگزین شدند.
+حذف یک بخش از متن
+
+اگر مقدار جایگزین رشته خالی باشد:
+
+                                                                    powerquery
+""
+
+متن هدف حذف می‌شود.
+
+مثال:
+
+                                                                    powerquery
+let
+    RawPhone = "0912-345-6789",
+    CleanPhone = Text.Replace(RawPhone, "-", "")
+in
+    CleanPhone
+
+خروجی:
+
+                                                                    text
+09123456789
+
+    شماره تلفن را معمولاً متنی نگه دار؛ تبدیل آن به عدد می‌تواند صفر اول را حذف کند.
