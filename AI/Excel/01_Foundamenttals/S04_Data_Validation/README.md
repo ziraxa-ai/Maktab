@@ -125,9 +125,9 @@ Quantity 	عدد صحیح مثبت
 
 در H2 بنویس و به پایین گسترش بده:
 
-                                                                    excel
+```
 =IF(AND(F2="Delivered",E2=""),"Missing delivery date",IF(AND(F2<>"Delivered",E2<>""),"Check status","OK"))
-
+```
 دو خطا را پیدا می‌کند:
 
     وضعیت Delivered است، اما تاریخ تحویل نداریم.
