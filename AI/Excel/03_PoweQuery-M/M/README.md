@@ -1578,10 +1578,9 @@ Ali   Ahmadi
 ۲. ساختار Text.Replace
 
 ساختار فراخوانی:
-
-                                                                    powerquery
+```
 Text.Replace(text, old, new)
-
+```
 معنی ورودی‌ها:
 ورودی 	معنی
 text 	متن اصلی
@@ -1590,7 +1589,7 @@ new 	متن جایگزین
 
 مثال:
 
-                                                                    powerquery
+```
 let
     OriginalText = "Excel is useful",
     UpdatedText = Text.Replace(
@@ -1600,55 +1599,53 @@ let
     )
 in
     UpdatedText
-
+```
 خروجی:
 
-                                                                    text
+```
 Power Query is useful
-
+```
 تابع متن اصلی را تغییر نمی‌دهد؛ یک مقدار متنی جدید برمی‌گرداند.
 همه رخدادهای متن هدف جایگزین می‌شوند
 
-                                                                    powerquery
+```
 let
     ProductCode = "AB-12-CD-34",
     StandardizedCode = Text.Replace(ProductCode, "-", "/")
 in
     StandardizedCode
-
+```
 خروجی:
-
-                                                                    text
+```
 AB/12/CD/34
-
+```
 هر سه خط تیره جایگزین شدند.
 حذف یک بخش از متن
 
 اگر مقدار جایگزین رشته خالی باشد:
 
-                                                                    powerquery
+```
 ""
-
+```
 متن هدف حذف می‌شود.
 
 مثال:
 
-                                                                    powerquery
+```
 let
     RawPhone = "0912-345-6789",
     CleanPhone = Text.Replace(RawPhone, "-", "")
 in
     CleanPhone
-
+```
 خروجی:
-
-                                                                    text
+```
 09123456789
+```
 
-    شماره تلفن را معمولاً متنی نگه دار؛ تبدیل آن به عدد می‌تواند صفر اول را حذف کند.
+- شماره تلفن را معمولاً متنی نگه دار؛ تبدیل آن به عدد می‌تواند صفر اول را حذف کند.
 Text.Replace به بزرگی و کوچکی حروف حساس است
-
-                                                                    powerquery
+```
 let
     OriginalText = "tehran, Tehran, TEHRAN",
     UpdatedText = Text.Replace(
@@ -1658,18 +1655,17 @@ let
     )
 in
     UpdatedText
-
+```
 خروجی:
 
-                                                                    text
+```
 Shiraz, Tehran, TEHRAN
-
+```
 فقط tehran با همان شکل حروف جایگزین شد.
 اگر داده باید استاندارد شود
 
 می‌توانی ابتدا شکل حروف را یکسان کنی:
-
-                                                                    powerquery
+```
 let
     RawCity = "  Tehran  ",
     StandardizedCity = Text.Upper(Text.Trim(RawCity)),
@@ -1680,12 +1676,12 @@ let
     )
 in
     UpdatedCity
-
+```
 خروجی:
 
-                                                                    text
+```
 THR
-
+```
 اما توجه کن:
 
     Text.Replace پارامتر مقایسه‌گر برای نادیده‌گرفتن بزرگی و کوچکی حروف ندارد. یکسان‌کردن حروف قبل از جایگزینی نیز شکل متن خروجی را تغییر می‌دهد.
@@ -1696,7 +1692,7 @@ THR
 
 مثال:
 
-                                                                    powerquery
+```
 let
     RawName = "  علي كريمي  ",
     TrimmedName = Text.Trim(RawName),
@@ -1704,17 +1700,15 @@ let
     FixedKaf = Text.Replace(FixedYeh, "ك", "ک")
 in
     FixedKaf
-
+```
 خروجی:
-
-                                                                    text
+```
 علی کریمی
-
+```
 زنجیره تبدیل:
-
-                                                                    text
+```
 RawName → TrimmedName → FixedYeh → FixedKaf
-
+```
 این استانداردسازی می‌تواند برای موارد زیر مفید باشد:
 
     تطبیق نام‌ها؛
