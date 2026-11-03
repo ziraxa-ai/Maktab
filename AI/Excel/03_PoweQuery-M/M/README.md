@@ -214,23 +214,23 @@ in
 ```
 مثال کامل:
 
-                                                                    powerquery
+```
 let
     #"Raw Customer Name" = "  Sara  ",
     #"Clean Customer Name" = Text.Trim(#"Raw Customer Name")
 in
     #"Clean Customer Name"
-
+```
 خروجی:
 
-                                                                    text
+```
 Sara
-
+```
 ساختار را دقیق ببین
 
-                                                                    powerquery
+```
 #"Clean Customer Name"
-
+```
 شامل:
 
     علامت #
@@ -243,17 +243,17 @@ Sara
 
 برای یک نام ساده هم می‌توان همین نگارش را استفاده کرد:
 
-                                                                    powerquery
+```
 let
     Price = 100
 in
     #"Price"
-
+```
 خروجی:
 
-                                                                    text
+```
 100
-
+```
 پس Price و #"Price" به همان نام اشاره می‌کنند.
 
 اما #"price" نام دیگری است، چون بزرگی و کوچکی حروف فرق دارد.
@@ -262,7 +262,7 @@ in
 
 کلمه‌هایی مانند این‌ها نقش ویژه دارند:
 
-                                                                    powerquery
+```
 let
 in
 if
@@ -272,7 +272,7 @@ each
 true
 false
 null
-
+```
 مثلاً این کد نادرست است:
 
                                                                     powerquery
