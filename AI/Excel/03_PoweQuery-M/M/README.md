@@ -275,51 +275,51 @@ null
 ```
 مثلاً این کد نادرست است:
 
-                                                                    powerquery
+```
 let
     if = 10
 in
     if
-
+```
 از نظر فنی می‌توان چنین نامی را نقل‌قول‌شده نوشت:
 
-                                                                    powerquery
+```
 let
     #"if" = 10
 in
     #"if"
-
+```
 اما این کار برای خوانایی مناسب نیست.
 
 بهتر:
 
-                                                                    powerquery
+```
 let
     Threshold = 10
 in
     Threshold
-
+```
 قاعده حرفه‌ای: نام باید مفهوم داده یا تبدیل را روشن کند، نه اینکه خواننده را درگیر قواعد ویژه زبان کند.
 ۷. سبک نام‌گذاری پیشنهادی
 
 هر دو سبک زیر قابل استفاده‌اند:
 
-                                                                    powerquery
+```
 CustomerName
-
-                                                                    powerquery
+```
+```
 customerName
-
+```
 اولی معمولاً PascalCase و دومی camelCase نامیده می‌شود.
 
 برای این دوره از PascalCase استفاده می‌کنیم:
 
-                                                                    powerquery
+```
 RawCustomerName
 CleanedCustomerName
 MinimumAge
 FilteredCustomers
-
+```
 حساسیت به حروف
 ۸. Price و price دو نام متفاوت‌اند
 
@@ -327,51 +327,51 @@ M به بزرگی و کوچکی حروف حساس است.
 
 این کد را اجرا کن:
 
-                                                                    powerquery
+```
 let
     Price = 100,
     price = 200
 in
     Price + price
-
+```
 خروجی:
 
-                                                                    text
+```
 300
-
+```
 تعریف دو نام بالا مجاز است، چون یکسان نیستند.
 
 اما استفاده از چنین نام‌هایی در پروژه واقعی توصیه نمی‌شود؛ تشخیص تفاوت آن‌ها دشوار است.
 
 بهتر:
 
-                                                                    powerquery
+```
 let
     OriginalPrice = 100,
     UpdatedPrice = 200
 in
     OriginalPrice + UpdatedPrice
-
+```
 ۹. خطای رایج: نام تعریف‌شده با نام استفاده‌شده فرق دارد
 
 کد خطادار:
 
-                                                                    powerquery
+```
 let
     CustomerName = "Sara"
 in
     customerName
-
+```
 ما CustomerName را تعریف کرده‌ایم، ولی customerName را درخواست کرده‌ایم.
 
 نسخه درست:
 
-                                                                    powerquery
+```
 let
     CustomerName = "Sara"
 in
     CustomerName
-
+```
 هنگام دیدن خطای «نام شناخته نشد»، این سه مورد را بررسی کن:
 
     آیا نام واقعاً تعریف شده است؟
@@ -381,10 +381,9 @@ in
 نام توابع هم حساس است
 
 درست:
-
-                                                                    powerquery
+```
 Text.Trim
-
+```
 نادرست:
 
                                                                     powerquery
