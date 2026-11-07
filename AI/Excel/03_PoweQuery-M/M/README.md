@@ -1368,63 +1368,64 @@ CustomerAge = "29"
 تمرین‌ها
 تمرین ۱: خروجی را پیش‌بینی کن
 
-                                                                    powerquery
+```
 let
     Score = 10,
     score = 20,
     SCORE = 30
 in
     Score + SCORE
-
+```
 خروجی چیست؟ آیا تعریف‌ها تکراری‌اند؟
 تمرین ۲: نام یا متن؟
 
 خروجی دو کد زیر چه تفاوتی دارد؟
 الف
 
-                                                                    powerquery
+```
 let
     #"Clean Name" = "Sara"
 in
     #"Clean Name"
-
+```
 ب
 
-                                                                    powerquery
+```
 let
     #"Clean Name" = "Sara"
 in
     "Clean Name"
-
+```
 تمرین ۳: سه ایراد را اصلاح کن
 
-                                                                    powerquery
+```
 let
     RawName = "  sara  ",
     CleanName = text.trim(rawName)
 in
     cleanName
-
+```
 تمرین ۴: حذف تعریف تکراری
 
 این کد را با نام‌های معنادار اصلاح کن:
 
-                                                                    powerquery
+```
 let
     Amount = 500,
     Amount = Amount * 0.90
 in
     Amount
+```
 
 خروجی باید 450 باشد.
 تمرین ۵: مقایسه شهر
 
 دو مقدار داریم:
 
-                                                                    text
+```
 "  shiraz "
 "SHIRAZ"
-
+```
 کدی بنویس که:
 
     آن‌ها را در دو نام ذخیره کند.
@@ -1439,85 +1440,10 @@ in
 باید فقط دو تعریف تنظیمی را تغییر بدهی.
 
 خروجی مورد انتظار: سطر Reza.
-پاسخ تمرین‌ها
-پاسخ ۱
 
-                                                                    text
-40
+ ## توابع متنی و جایگزینی در Power Query
 
-سه نام متفاوت داریم؛ اما این سبک نام‌گذاری برای پروژه واقعی مناسب نیست.
-پاسخ ۲
-
-الف:
-
-                                                                    text
-Sara
-
-ب:
-
-                                                                    text
-Clean Name
-
-در اولی به شناسه ارجاع داده‌ایم؛ در دومی متن ثابت برگردانده‌ایم.
-پاسخ ۳
-
-                                                                    powerquery
-let
-    RawName = "  sara  ",
-    CleanName = Text.Trim(RawName)
-in
-    CleanName
-
-سه اصلاح:
-
-    text.trim ← Text.Trim
-    rawName ← RawName
-    cleanName ← CleanName
-
-خروجی sara است؛ Text.Trim حروف را بزرگ نمی‌کند.
-پاسخ ۴
-
-                                                                    powerquery
-let
-    OriginalAmount = 500,
-    DiscountedAmount = OriginalAmount * 0.90
-in
-    DiscountedAmount
-
-پاسخ ۵
-
-                                                                    powerquery
-let
-    RawCity1 = "  shiraz ",
-    RawCity2 = "SHIRAZ",
-
-    CleanCity1 = Text.Trim(RawCity1),
-    CleanCity2 = Text.Trim(RawCity2),
-
-    AreEqual = Comparer.Equals(
-        Comparer.OrdinalIgnoreCase,
-        CleanCity1,
-        CleanCity2
-    )
-in
-    AreEqual
-
-پاسخ ۶
-
-دو تعریف ابتدای پروژه:
-
-                                                                    powerquery
-MinimumAge = 40,
-TargetCity = "SHIRAZ",
-
-خروجی:
-CustomerID 	Name 	Age 	City
-3 	Reza 	41 	Shiraz
-
-
- توابع متنی و جایگزینی در Power Query
-
-در این بخش یاد می‌گیری چطور متن‌های خام را به داده‌های قابل تحلیل تبدیل کنی؛ مثلاً:
+در این بخش یاد می‌گیریم چطور متن‌های خام را به داده‌های قابل تحلیل تبدیل کنی؛ مثلاً:
 
     یکسان‌سازی «ي» و «ی» در نام مشتریان؛
     اصلاح جداکننده‌های شماره تلفن یا کد کالا؛
@@ -1527,18 +1453,19 @@ CustomerID 	Name 	Age 	City
 
 تمرکز اصلی ما روی دو تابع است:
 
-                                                                    powerquery
+```
 Text.Replace
 Text.BetweenDelimiters
-
+```
 اما برای استفاده عملی از آن‌ها، چند تابع مکمل را هم مرور می‌کنیم.
-
+```
     مثال‌های مستقل را در Blank Query → Advanced Editor اجرا کن. این کدها هم در Excel Power Query و هم در Power BI قابل استفاده‌اند.
-
+```
 جایگزینی و استانداردسازی متن
-۱. مرور ابزارهای پایه
+### ۱. مرور ابزارهای پایه
 
 این توابع را کنار هم در نظر بگیر:
+```
 تابع 	کاربرد
 Text.Trim 	حذف فاصله‌های ابتدا و انتهای متن
 Text.Clean 	حذف نویسه‌های کنترلی
@@ -1546,47 +1473,49 @@ Text.Upper 	تبدیل حروف به بزرگ
 Text.Lower 	تبدیل حروف به کوچک
 Text.Replace 	جایگزینی بخشی از متن
 Text.BetweenDelimiters 	استخراج متن میان دو جداکننده
-
+```
 مثال:
 
-                                                                    powerquery
+```
 let
     RawText = "  power query  ",
     TrimmedText = Text.Trim(RawText),
     UpperText = Text.Upper(TrimmedText)
 in
     UpperText
-
+```
 خروجی:
 
-                                                                    text
+```
 POWER QUERY
-
+```
 نکته مهم درباره Text.Trim
 
 این تابع فاصله‌های داخل متن را حذف نمی‌کند:
 
-                                                                    powerquery
+```
 Text.Trim("  Ali   Ahmadi  ")
-
+```
 خروجی:
 
-                                                                    text
+```
 Ali   Ahmadi
-
+```
 سه فاصله بین نام و نام خانوادگی همچنان باقی است.
-۲. ساختار Text.Replace
+
+### ۲. ساختار Text.Replace
 
 ساختار فراخوانی:
 ```
 Text.Replace(text, old, new)
 ```
 معنی ورودی‌ها:
-ورودی 	معنی
-text 	متن اصلی
-old 	بخشی که باید پیدا شود
-new 	متن جایگزین
-
+```
+		ورودی 	معنی
+		text 	متن اصلی
+		old 	بخشی که باید پیدا شود
+		new 	متن جایگزین
+```
 مثال:
 
 ```
@@ -1640,26 +1569,26 @@ in
 ```
 خروجی:
 ```
-09123456789
+	09123456789
 ```
 
 - شماره تلفن را معمولاً متنی نگه دار؛ تبدیل آن به عدد می‌تواند صفر اول را حذف کند.
-Text.Replace به بزرگی و کوچکی حروف حساس است
+### 4.Text.Replace به بزرگی و کوچکی حروف حساس است
 ```
-let
-    OriginalText = "tehran, Tehran, TEHRAN",
-    UpdatedText = Text.Replace(
-        OriginalText,
-        "tehran",
-        "Shiraz"
-    )
-in
-    UpdatedText
+	let
+	    OriginalText = "tehran, Tehran, TEHRAN",
+	    UpdatedText = Text.Replace(
+	        OriginalText,
+	        "tehran",
+	        "Shiraz"
+	    )
+	in
+	    UpdatedText
 ```
 خروجی:
 
 ```
-Shiraz, Tehran, TEHRAN
+	Shiraz, Tehran, TEHRAN
 ```
 فقط tehran با همان شکل حروف جایگزین شد.
 اگر داده باید استاندارد شود
@@ -1686,7 +1615,7 @@ THR
 
     Text.Replace پارامتر مقایسه‌گر برای نادیده‌گرفتن بزرگی و کوچکی حروف ندارد. یکسان‌کردن حروف قبل از جایگزینی نیز شکل متن خروجی را تغییر می‌دهد.
 
-کاربرد فارسی: یکسان‌سازی «ي / ی» و «ك / ک»
+### کاربرد فارسی: یکسان‌سازی «ي / ی» و «ك / ک»
 
 این حروف ممکن است ظاهراً شبیه باشند، اما نویسه‌های متفاوتی هستند.
 
@@ -1718,3 +1647,374 @@ RawName → TrimmedName → FixedYeh → FixedKaf
     آماده‌سازی داده متنی.
 
 البته یکسان‌شدن نام دو نفر به معنای یکسان‌بودن هویت آن‌ها نیست؛ نام به‌تنهایی کلید مطمئنی برای اتصال داده نیست.
+
+### ترتیب جایگزینی‌ها مهم است
+
+دو ترتیب مختلف را مقایسه کن.
+ترتیب اول
+
+```
+let
+    OriginalText = "A",
+    FirstReplace = Text.Replace(OriginalText, "A", "B"),
+    SecondReplace = Text.Replace(FirstReplace, "B", "C")
+in
+    SecondReplace
+```
+خروجی:
+
+```
+C
+```
+ترتیب دوم
+
+```
+let
+    OriginalText = "A",
+    FirstReplace = Text.Replace(OriginalText, "B", "C"),
+    SecondReplace = Text.Replace(FirstReplace, "A", "B")
+in
+    SecondReplace
+```
+خروجی:
+
+```
+B
+```
+چرا؟
+
+چون هر تابع، خروجی گام قبلی را دریافت می‌کند. متن تولیدشده در یک جایگزینی ممکن است هدف جایگزینی بعدی شود.
+
+### رفتار با متن پیدا‌نشده و null
+اگر متن هدف وجود نداشته باشد
+
+```
+Text.Replace("Sara", "Reza", "Ali")
+```
+خروجی همان متن اصلی است:
+
+```
+Sara
+```
+اگر ورودی null باشد
+
+```
+Text.Replace(null, "-", "")
+```
+خروجی:
+
+```
+null
+```
+#### تفاوت سه مقدار
+```
+مقدار 	معنی
+null 	نبود مقدار
+"" 	متن با طول صفر
+"null" 	متن چهارحرفی null
+```
+این سه را بدون دلیل تجاری مشخص به یکدیگر تبدیل نکن.
+
+## استخراج متن میان جداکننده‌ها
+
+### ساختار Text.BetweenDelimiters
+
+کاربرد ساده:
+
+```
+Text.BetweenDelimiters(text, startDelimiter, endDelimiter)
+```
+یعنی:
+
+    از متن اصلی، بخش بین جداکننده شروع و پایان را بردار.
+
+مثال:
+
+```
+let
+    RawText = "Order[ORD-1048]",
+    OrderCode = Text.BetweenDelimiters(
+        RawText,
+        "[",
+        "]"
+    )
+in
+    OrderCode
+```
+خروجی:
+
+```
+ORD-1048
+```
+خود جداکننده‌ها در خروجی نیستند.
+### جداکننده می‌تواند چندحرفی باشد
+
+لازم نیست جداکننده فقط یک کاراکتر مثل [ باشد.
+
+```
+let
+    RawText = "Customer: Sara | City: Tehran",
+    CustomerName = Text.BetweenDelimiters(
+        RawText,
+        "Customer: ",
+        " |"
+    )
+in
+    CustomerName
+```
+خروجی:
+
+```
+Sara
+```
+در اینجا:
+
+```
+"Customer: "
+```
+جداکننده شروع است و:
+
+```
+" |"
+```
+جداکننده پایان.
+فاصله‌ها بخشی از جداکننده‌اند
+
+این دو یکسان نیستند:
+
+```
+	"Customer:"
+```
+,
+```
+	"Customer: "
+```
+روش کاربردی برای بعضی قالب‌ها:
+
+```
+let
+    RawText = "Customer:   Sara   | City: Tehran",
+    ExtractedName = Text.BetweenDelimiters(
+        RawText,
+        "Customer:",
+        "|"
+    ),
+    CleanName = Text.Trim(ExtractedName)
+in
+    CleanName
+```
+خروجی:
+
+```
+Sara
+```
+ابتدا استخراج کرده‌ایم، سپس فاصله‌های دو سر نتیجه را حذف کرده‌ایم.
+### جداکننده‌ها به حروف حساس‌اند
+
+این متن را در نظر بگیر:
+
+```
+City[Tehran]
+```
+جداکننده زیر درست است:
+
+```
+"City["
+```
+اما این یکی با متن مطابقت ندارد:
+
+```
+"city["
+```
+وقتی قالب متن حروف متغیر دارد، باید پیش از استخراج برای آن تصمیم بگیری؛ مثلاً استانداردسازی حروف، به شرطی که تغییر حروف مقدار استخراج‌شده قابل قبول باشد.
+### اگر چند جفت جداکننده وجود داشته باشد
+
+متن زیر را داریم:
+
+```
+Codes[A12][B34][C56]
+```
+به‌صورت پیش‌فرض، اولین [ و اولین ] بعد از آن استفاده می‌شوند:
+
+```
+let
+    RawText = "Codes[A12][B34][C56]",
+    FirstCode = Text.BetweenDelimiters(
+        RawText,
+        "[",
+        "]"
+    )
+in
+    FirstCode
+```
+خروجی:
+
+```
+A12
+```
+برای انتخاب شروع بعدی، ورودی اختیاری چهارم را استفاده می‌کنیم.
+انتخاب کد دوم
+
+```
+let
+    RawText = "Codes[A12][B34][C56]",
+    SecondCode = Text.BetweenDelimiters(
+        RawText,
+        "[",
+        "]",
+        1
+    )
+in
+    SecondCode
+```
+خروجی:
+
+```
+B34
+```
+چرا 1؟
+
+شماره‌گذاری رخدادها از صفر شروع می‌شود:
+```
+		مقدار startIndex 	جداکننده شروع انتخاب‌شده
+		0 	اولین
+		1 	دومین
+		2 	سومین
+```
+پس برای کد سوم:
+
+```
+Text.BetweenDelimiters(
+    "Codes[A12][B34][C56]",
+    "[",
+    "]",
+    2
+)
+```
+خروجی:
+
+```
+C56
+```
+### ورودی پنجم: انتخاب جداکننده پایان
+
+ساختار کامل‌تر:
+
+```
+Text.BetweenDelimiters(
+    text,
+    startDelimiter,
+    endDelimiter,
+    startIndex,
+    endIndex
+)
+```
+نکته بسیار مهم:
+
+    endIndex نسبت به قسمت بعد از جداکننده شروعِ انتخاب‌شده سنجیده می‌شود؛ نه مستقل از ابتدای کل متن.
+
+مثال:
+
+```
+let
+    RawText = "Codes[A12][B34][C56]",
+    ExtractedText = Text.BetweenDelimiters(
+        RawText,
+        "[",
+        "]",
+        0,
+        1
+    )
+in
+    ExtractedText
+```
+خروجی:
+
+```
+A12][B34
+```
+چرا؟
+
+1. startIndex = 0: اولین [ انتخاب می‌شود.
+2. endIndex = 1: دومین ] پس از آن انتخاب می‌شود.
+3. متن بین این دو برگردانده می‌شود.
+
+این تابع ساختار جفت‌شدن یا تو‌در‌تویی براکت‌ها را تحلیل نمی‌کند؛ فقط رخدادهای جداکننده را پیدا می‌کند.
+
+### انتخاب جداکننده از انتهای متن — اختیاری
+
+برای انتخاب آخرین [ می‌توان نوشت:
+
+```
+let
+    RawText = "Codes[A12][B34][C56]",
+    LastCode = Text.BetweenDelimiters(
+        RawText,
+        "[",
+        "]",
+        {0, RelativePosition.FromEnd}
+    )
+in
+    LastCode
+```
+خروجی:
+
+```
+C56
+```
+این قسمت:
+
+```
+{0, RelativePosition.FromEnd}
+```
+یعنی اولین رخداد هنگام شمارش از انتها، یا همان آخرین رخداد در متن.
+
+فعلاً الگو را بشناس؛ ساختار لیست { } را در هفته دوم کامل بررسی می‌کنیم.
+
+ ### متن ناقص و مدیریت خطا
+
+در داده واقعی ممکن است چنین مقدارهایی داشته باشیم:
+
+```
+Order[ORD-1048]
+Order[ORD-1049]
+No order code
+```
+سطر سوم جداکننده لازم را ندارد و استخراج می‌تواند خطا بدهد.
+
+یک الگوی کاربردی:
+
+```
+let
+    RawText = "No order code",
+    OrderCode =
+        try
+            Text.BetweenDelimiters(RawText, "[", "]")
+        otherwise
+            null
+in
+    OrderCode
+```
+خروجی:
+
+```
+null
+```
+معنی try … otherwise
+
+```
+try Expression otherwise Alternative
+```
+یعنی:
+
+    عبارت را ارزیابی کن.
+    اگر بدون خطا بود، نتیجه را برگردان.
+    اگر خطا داشت، مقدار جایگزین را برگردان.
+
+احتیاط مهم
+
+تبدیل خطا به null باعث درست‌شدن داده نمی‌شود؛ فقط اجازه می‌دهد پردازش ادامه پیدا کند.
+
+برای داده قابل اتکا، بهتر است در کنار مقدار استخراج‌شده، ستون وضعیت کیفیت هم بسازی.
+
+همچنین try فقط خطا را می‌گیرد؛ متن خالی یا کد نامعتبر لزوماً خطا نیست.
