@@ -2019,29 +2019,666 @@ try Expression otherwise Alternative
 
 همچنین try فقط خطا را می‌گیرد؛ متن خالی یا کد نامعتبر لزوماً خطا نیست.
 
-لیست‌ها { }
+## لیست‌ها { }
+
 ۱. ساخت لیست
 لیست با آکولاد ساخته می‌شود:
 
-powerquery
+```
 let
     Scores = {12, 15, 18, 20}
 in
     Scores
+```
 خروجی یک لیست شامل چهار عدد است.
 
 لیست متنی:
 
-powerquery
+```
 {"Tehran", "Shiraz", "Tabriz"}
+```
 لیست خالی:
 
-powerquery
+```
 {}
+```
+
 لیست می‌تواند مقدارهای متفاوت داشته باشد:
 
-powerquery
+```
 {125, "Sara", true, null}
+```
+
 این ساختار مجاز است، اما برای محاسبات معمولاً بهتر است اعضا هم‌نوع باشند.
 
 مثلاً وجود "Sara" میان اعداد برای جمع‌زدن مشکل ایجاد می‌کند.
+ساخت بازه
+
+برای ساخت دنباله اعداد صحیح:
+
+                                                                    powerquery
+let
+    Numbers = {1..5}
+in
+    Numbers
+
+خروجی:
+
+                                                                    powerquery
+{1, 2, 3, 4, 5}
+
+این روش برای ساخت شماره‌ها یا داده آزمایشی کاربرد دارد.
+۳. دسترسی به عضو با موقعیت
+
+شماره‌گذاری در لیست از صفر شروع می‌شود.
+
+                                                                    powerquery
+let
+    Cities = {"Tehran", "Shiraz", "Tabriz"},
+    FirstCity = Cities{0},
+    SecondCity = Cities{1}
+in
+    SecondCity
+
+خروجی:
+
+                                                                    text
+Shiraz
+
+عبارت 	خروجی
+Cities{0} 	"Tehran"
+Cities{1} 	"Shiraz"
+Cities{2} 	"Tabriz"
+
+دقت کن:
+
+                                                                    powerquery
+{"Tehran", "Shiraz"}
+
+یک لیست می‌سازد؛ اما:
+
+                                                                    powerquery
+Cities{1}
+
+از لیست، یک عضو انتخاب می‌کند.
+۴. موقعیت ناموجود و دسترسی اختیاری
+
+این کد خطا دارد:
+
+                                                                    powerquery
+let
+    Cities = {"Tehran", "Shiraz"},
+    Result = Cities{5}
+in
+    Result
+
+چون عضو ششم وجود ندارد.
+
+با ? می‌توان دسترسی را اختیاری کرد:
+
+                                                                    powerquery
+let
+    Cities = {"Tehran", "Shiraz"},
+    Result = Cities{5}?
+in
+    Result
+
+خروجی:
+
+                                                                    powerquery
+null
+
+    این علامت فقط نبود عضو در دسترسی اختیاری را مدیریت می‌کند؛ جایگزین عمومی try … otherwise برای تمام خطاها نیست.
+
+۵. توابع مهم لیست
+
+                                                                    powerquery
+let
+    Numbers = {10, 20, 20, 30},
+    Summary = [
+        Count = List.Count(Numbers),
+        Total = List.Sum(Numbers),
+        Average = List.Average(Numbers),
+        Minimum = List.Min(Numbers),
+        Maximum = List.Max(Numbers),
+        UniqueNumbers = List.Distinct(Numbers)
+    ]
+in
+    Summary
+
+خروجی یک رکورد است؛ ساختار آن را در بخش بعد بررسی می‌کنیم:
+فیلد 	مقدار
+Count 	4
+Total 	80
+Average 	20
+Minimum 	10
+Maximum 	30
+UniqueNumbers 	{10, 20, 30}
+
+توابع پرکاربرد دیگر:
+
+                                                                    powerquery
+List.First({10, 20, 30})
+
+خروجی: 10
+
+                                                                    powerquery
+List.Last({10, 20, 30})
+
+خروجی: 30
+
+                                                                    powerquery
+List.Contains({"Tehran", "Shiraz"}, "Shiraz")
+
+خروجی: true
+
+                                                                    powerquery
+List.RemoveNulls({10, null, 20, null})
+
+خروجی:
+
+                                                                    powerquery
+{10, 20}
+
+نکته کیفیت داده: List.Count اعضای null را هم می‌شمارد. برای شمارش مقدارهای غیرتهی می‌توانی بنویسی:
+
+                                                                    powerquery
+List.NonNullCount({10, null, 20})
+
+خروجی: 2
+۶. تبدیل همه اعضا با List.Transform
+
+فرض کن می‌خواهیم به هر قیمت ۱۰ درصد اضافه کنیم:
+
+                                                                    powerquery
+let
+    Prices = {100, 200, 300},
+    UpdatedPrices = List.Transform(
+        Prices,
+        each _ * 1.1
+    )
+in
+    UpdatedPrices
+
+خروجی:
+
+                                                                    powerquery
+{110, 220, 330}
+
+معنی each و _
+
+در این مثال:
+
+                                                                    powerquery
+each _ * 1.1
+
+یعنی:
+
+    هر عضو را بگیر و در ۱٫۱ ضرب کن.
+
+_ مقدار عضو جاری است.
+
+شکل صریح همان تابع:
+
+                                                                    powerquery
+(price) => price * 1.1
+
+بنابراین می‌توان نوشت:
+
+                                                                    powerquery
+List.Transform(Prices, (price) => price * 1.1)
+
+مثال متنی
+
+                                                                    powerquery
+let
+    RawCities = {" tehran ", "SHIRAZ", " tabriz"},
+    CleanCities = List.Transform(
+        RawCities,
+        each Text.Upper(Text.Trim(_))
+    )
+in
+    CleanCities
+
+خروجی:
+
+                                                                    powerquery
+{"TEHRAN", "SHIRAZ", "TABRIZ"}
+
+۷. فیلترکردن اعضا با List.Select
+
+                                                                    powerquery
+let
+    Scores = {8, 12, 17, 9, 20},
+    PassedScores = List.Select(
+        Scores,
+        each _ >= 10
+    )
+in
+    PassedScores
+
+خروجی:
+
+                                                                    powerquery
+{12, 17, 20}
+
+تفاوت دو تابع:
+تابع 	کار
+List.Transform 	هر عضو را به نتیجه جدید تبدیل می‌کند
+List.Select 	فقط اعضایی را نگه می‌دارد که شرط دارند
+۸. اتصال لیست‌ها
+
+با عملگر &:
+
+                                                                    powerquery
+let
+    FirstList = {1, 2},
+    SecondList = {3, 4},
+    Combined = FirstList & SecondList
+in
+    Combined
+
+خروجی:
+
+                                                                    powerquery
+{1, 2, 3, 4}
+
+یا با List.Combine:
+
+                                                                    powerquery
+List.Combine({{1, 2}, {3, 4}, {5}})
+
+خروجی:
+
+                                                                    powerquery
+{1, 2, 3, 4, 5}
+
+در مثال دوم، ورودی یک لیست از لیست‌ها است.
+۹. کاربرد عملی: حذف فاصله‌های تکراری میان کلمات
+
+در بخش قبلی گفتیم Text.Trim فقط دو سر متن را پاک می‌کند.
+
+حالا می‌توانیم فاصله‌های معمولی بین کلمات را هم یکسان کنیم:
+
+                                                                    powerquery
+let
+    RawName = "  Ali    Reza   Ahmadi  ",
+
+    Parts = Text.Split(RawName, " "),
+
+    NonEmptyParts = List.Select(
+        Parts,
+        each _ <> ""
+    ),
+
+    CleanName = Text.Combine(
+        NonEmptyParts,
+        " "
+    )
+in
+    CleanName
+
+خروجی:
+
+                                                                    text
+Ali Reza Ahmadi
+
+مراحل:
+
+    Text.Split متن را با فاصله جدا می‌کند و لیست می‌سازد.
+    فاصله‌های متوالی باعث ایجاد اعضای خالی "" می‌شوند.
+    List.Select اعضای خالی را حذف می‌کند.
+    Text.Combine کلمات را با یک فاصله به هم متصل می‌کند.
+
+    این نسخه فاصله معمولی را مدیریت می‌کند، نه همه انواع فاصله، تب یا خط جدید.
+
+بخش دوم: رکوردها [ ]
+۱۰. رکورد چیست؟
+
+رکورد اطلاعات مربوط به یک موجودیت را با نام فیلد نگه می‌دارد:
+
+                                                                    powerquery
+let
+    Customer = [
+        CustomerID = 101,
+        Name = "Sara",
+        City = "Tehran",
+        Age = 28
+    ]
+in
+    Customer
+
+این رکورد چهار فیلد دارد.
+
+تفاوت بنیادی:
+
+                                                                    powerquery
+{"Sara", "Tehran", 28}
+
+در لیست، برای انتخاب مقدار معمولاً باید موقعیت آن را بدانی.
+
+                                                                    powerquery
+[Name = "Sara", City = "Tehran", Age = 28]
+
+در رکورد، مقدار را با نام فیلد انتخاب می‌کنی.
+
+نام فیلدها در یک رکورد باید یکتا باشند.
+۱۱. دسترسی به فیلد
+
+                                                                    powerquery
+let
+    Customer = [
+        Name = "Sara",
+        City = "Tehran",
+        Age = 28
+    ],
+    CustomerCity = Customer[City]
+in
+    CustomerCity
+
+خروجی:
+
+                                                                    text
+Tehran
+
+مقایسه مهم:
+
+                                                                    powerquery
+Cities{0}
+
+انتخاب عضو لیست با موقعیت.
+
+                                                                    powerquery
+Customer[City]
+
+انتخاب فیلد رکورد با نام.
+
+نام فیلدها به بزرگی و کوچکی حروف حساس‌اند:
+
+                                                                    powerquery
+Customer[City]
+
+با این عبارت یکسان نیست:
+
+                                                                    powerquery
+Customer[city]
+
+۱۲. فیلد دارای فاصله در نام
+
+                                                                    powerquery
+let
+    Customer = [
+        #"Customer Name" = "Sara Ahmadi",
+        #"Postal Code" = "1234567890"
+    ],
+    Result = Customer[#"Customer Name"]
+in
+    Result
+
+خروجی:
+
+                                                                    text
+Sara Ahmadi
+
+استفاده از #"" برای نوشتن شناسه‌های دارای فاصله یا نویسه‌های خاص، الگوی روشن و مطمئنی است.
+۱۳. فیلد ناموجود
+
+این عبارت خطا می‌دهد، اگر Phone وجود نداشته باشد:
+
+                                                                    powerquery
+Customer[Phone]
+
+دسترسی اختیاری:
+
+                                                                    powerquery
+let
+    Customer = [Name = "Sara"],
+    Phone = Customer[Phone]?
+in
+    Phone
+
+خروجی:
+
+                                                                    powerquery
+null
+
+اگر مقدار پیش‌فرض مشخصی می‌خواهی:
+
+                                                                    powerquery
+let
+    Customer = [Name = "Sara"],
+    Phone = Record.FieldOrDefault(
+        Customer,
+        "Phone",
+        "Not provided"
+    )
+in
+    Phone
+
+خروجی:
+
+                                                                    text
+Not provided
+
+نکته: مقدار پیش‌فرض برای نبود فیلد است. اگر فیلد وجود داشته باشد و مقدارش null باشد، همین null برگردانده می‌شود.
+۱۴. انتخاب فیلد با نام پویا
+
+فرض کن نام فیلد داخل یک متغیر است:
+
+                                                                    powerquery
+let
+    Customer = [
+        Name = "Sara",
+        City = "Tehran"
+    ],
+    FieldName = "City",
+    Result = Record.Field(Customer, FieldName)
+in
+    Result
+
+خروجی:
+
+                                                                    text
+Tehran
+
+چرا ننوشته‌ایم:
+
+                                                                    powerquery
+Customer[FieldName]
+
+چون این عبارت دنبال فیلدی با نام واقعی FieldName می‌گردد؛ مقدار متغیر را به‌عنوان نام فیلد استفاده نمی‌کند.
+۱۵. توابع کاربردی رکورد
+
+با فرض:
+
+                                                                    powerquery
+Customer = [Name = "Sara", City = "Tehran", Age = 28]
+
+عبارت 	خروجی
+Record.FieldNames(Customer) 	{"Name", "City", "Age"}
+Record.FieldValues(Customer) 	{"Sara", "Tehran", 28}
+Record.HasFields(Customer, "City") 	true
+Record.HasFields(Customer, "Phone") 	false
+
+انتخاب چند فیلد:
+
+                                                                    powerquery
+Record.SelectFields(Customer, {"Name", "City"})
+
+خروجی:
+
+                                                                    powerquery
+[Name = "Sara", City = "Tehran"]
+
+حذف یک فیلد:
+
+                                                                    powerquery
+Record.RemoveFields(Customer, {"Age"})
+
+خروجی:
+
+                                                                    powerquery
+[Name = "Sara", City = "Tehran"]
+
+این توابع رکورد جدید برمی‌گردانند؛ مقدار اصلی را درجا بازنویسی نمی‌کنند.
+بخش سوم: ترکیب ساختارها
+۱۶. رکورد داخل رکورد، لیست داخل رکورد
+
+داده‌های واقعی، مخصوصاً خروجی APIها و JSON، اغلب تو‌در‌تو هستند.
+
+                                                                    powerquery
+let
+    Customer = [
+        CustomerID = 101,
+        Name = "Sara",
+        Address = [
+            City = "Tehran",
+            PostalCode = "1234567890"
+        ],
+        Phones = {
+            "09121111111",
+            "02112345678"
+        }
+    ],
+    Result = Customer[Address][City]
+in
+    Result
+
+خروجی:
+
+                                                                    text
+Tehran
+
+مسیر دسترسی:
+
+                                                                    text
+Customer
+   ↓ [Address]
+رکورد آدرس
+   ↓ [City]
+"Tehran"
+
+برای اولین شماره تلفن:
+
+                                                                    powerquery
+Customer[Phones]{0}
+
+مراحل:
+
+    [Phones] یک لیست برمی‌گرداند.
+    {0} اولین عضو آن لیست را انتخاب می‌کند.
+
+۱۷. لیست رکوردها
+
+                                                                    powerquery
+let
+    Customers = {
+        [CustomerID = 1, Name = "Sara", City = "Tehran"],
+        [CustomerID = 2, Name = "Ali", City = "Shiraz"],
+        [CustomerID = 3, Name = "Reza", City = "Tabriz"]
+    },
+    SecondCustomerName = Customers{1}[Name]
+in
+    SecondCustomerName
+
+خروجی:
+
+                                                                    text
+Ali
+
+این بار:
+
+                                                                    text
+Customers
+   ↓ {1}
+رکورد مشتری دوم
+   ↓ [Name]
+"Ali"
+
+استخراج نام همه مشتریان
+
+                                                                    powerquery
+List.Transform(Customers, each [Name])
+
+خروجی:
+
+                                                                    powerquery
+{"Sara", "Ali", "Reza"}
+
+چون عضو جاری یک رکورد است، این عبارت:
+
+                                                                    powerquery
+each [Name]
+
+در اینجا شکل کوتاه این تابع است:
+
+                                                                    powerquery
+each _[Name]
+
+یا صریح‌تر:
+
+                                                                    powerquery
+(customer) => customer[Name]
+
+پس معنی _ به ورودی تابع بستگی دارد: گاهی عدد است، گاهی متن و گاهی یک رکورد کامل.
+بخش چهارم: ارتباط با جدول‌ها
+۱۸. ستون جدول یک لیست و سطر جدول یک رکورد است
+
+این مثال را اجرا کن:
+
+                                                                    powerquery
+let
+    Source = #table(
+        type table [
+            Name = text,
+            City = text,
+            Amount = number
+        ],
+        {
+            {"Sara", "Tehran", 100},
+            {"Ali", "Shiraz", 200},
+            {"Reza", "Tabriz", 300}
+        }
+    ),
+
+    Result = [
+        Names = Source[Name],
+        FirstRow = Source{0},
+        FirstName = Source{0}[Name],
+        TotalAmount = List.Sum(Source[Amount])
+    ]
+in
+    Result
+
+خروجی‌ها:
+عبارت 	نوع خروجی 	مقدار
+Source[Name] 	لیست 	{"Sara", "Ali", "Reza"}
+Source{0} 	رکورد 	سطر اول
+Source{0}[Name] 	متن 	"Sara"
+List.Sum(Source[Amount]) 	عدد 	600
+
+این ارتباط یکی از مهم‌ترین نکته‌های زبان M است:
+
+    انتخاب ستون → لیست؛ انتخاب سطر → رکورد؛ انتخاب فیلد سطر → مقدار سلول.
+
+۱۹. حالا each [City] در فیلتر جدول روشن می‌شود
+
+قبلاً نوشته بودیم:
+
+                                                                    powerquery
+Table.SelectRows(
+    Source,
+    each [City] = "Tehran"
+)
+
+تابع Table.SelectRows هر سطر را به شکل یک رکورد به تابع شرط می‌دهد.
+
+بنابراین شکل صریح آن چنین است:
+
+                                                                    powerquery
+Table.SelectRows(
+    Source,
+    (row) => row[City] = "Tehran"
+)
+
+پس [City] در اینجا به فیلد شهرِ سطر جاری اشاره می‌کند.
