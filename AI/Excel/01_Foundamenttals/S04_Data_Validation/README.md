@@ -100,7 +100,7 @@ Data → Data Validation
     Title:
 
 ```
-وضعیت نامعتبر
+ وضعیت نامعتبر
 
     Error message:
 
