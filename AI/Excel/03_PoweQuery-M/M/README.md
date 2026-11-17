@@ -2682,3 +2682,622 @@ Table.SelectRows(
 )
 
 پس [City] در اینجا به فیلد شهرِ سطر جاری اشاره می‌کند.
+
+ لیست‌ها، رکوردها و توابع سفارشی برای چند فایل
+
+این دو موضوعی که فرستادی به هم مرتبط‌اند:
+
+    لیست‌ها { } و رکوردها [ ] ساختارهای اصلی نگهداری داده در M هستند.
+    توابع سفارشی یک فرایند را بسته‌بندی می‌کنند تا بتوانیم آن را روی چند مقدار، چند سطر یا چند فایل اجرا کنیم.
+
+مسیر آموزش:
+
+                                                                    text
+لیست و رکورد
+    ↓
+نوشتن تابع
+    ↓
+تبدیل یک فایل
+    ↓
+اجرای تابع روی تمام فایل‌های یک پوشه
+
+بخش اول: لیست‌ها در M
+۱. لیست چیست؟
+
+لیست مجموعه‌ای مرتب از مقادیر است که با آکولاد ساخته می‌شود:
+
+                                                                    powerquery
+{10, 20, 30}
+
+مثال اجرایی:
+
+                                                                    powerquery
+let
+    Prices = {100, 200, 300}
+in
+    Prices
+
+خروجی یک List با سه عضو است.
+
+لیست می‌تواند متن، عدد، null و حتی لیست یا رکورد دیگری داشته باشد:
+
+                                                                    powerquery
+{
+    10,
+    "Tehran",
+    null,
+    {1, 2},
+    [Name = "Sara", Age = 28]
+}
+
+البته برای تحلیل داده، لیست‌های هم‌نوع معمولاً ساده‌تر و قابل‌اتکاترند.
+۲. دسترسی به اعضای لیست
+
+شماره‌گذاری از صفر شروع می‌شود:
+
+                                                                    powerquery
+let
+    Cities = {"Tehran", "Shiraz", "Tabriz"},
+    FirstCity = Cities{0},
+    ThirdCity = Cities{2}
+in
+    ThirdCity
+
+خروجی:
+
+                                                                    text
+Tabriz
+
+عبارت 	نتیجه
+Cities{0} 	Tehran
+Cities{1} 	Shiraz
+Cities{2} 	Tabriz
+Cities{3} 	خطا: عضو وجود ندارد
+دسترسی اختیاری
+
+اگر ممکن است موقعیت موردنظر وجود نداشته باشد:
+
+                                                                    powerquery
+Cities{3}?
+
+برای این لیست، خروجی null است.
+
+    ? نبودن عضو را مدیریت می‌کند؛ جایگزین عمومی برای مدیریت همه خطاها نیست.
+
+۳. چند تابع مهم لیست
+
+                                                                    powerquery
+let
+    Amounts = {100, 200, 300},
+    Result = [
+        Count = List.Count(Amounts),
+        Total = List.Sum(Amounts),
+        Average = List.Average(Amounts),
+        Maximum = List.Max(Amounts)
+    ]
+in
+    Result
+
+خروجی یک رکورد است:
+
+                                                                    powerquery
+[
+    Count = 3,
+    Total = 600,
+    Average = 200,
+    Maximum = 300
+]
+
+رکورد را در بخش بعد باز می‌کنیم.
+۴. تبدیل تمام اعضا با List.Transform
+
+فرض کن می‌خواهیم به همه قیمت‌ها ۱۰ درصد اضافه کنیم:
+
+                                                                    powerquery
+let
+    Prices = {100, 200, 300},
+    UpdatedPrices = List.Transform(
+        Prices,
+        each _ * 1.1
+    )
+in
+    UpdatedPrices
+
+خروجی:
+
+                                                                    powerquery
+{110, 220, 330}
+
+در اینجا:
+
+                                                                    powerquery
+each _ * 1.1
+
+یعنی:
+
+    برای هر عضو، همان عضو را در 1.1 ضرب کن.
+
+_ مقدار عضو فعلی است.
+
+شکل صریح همین تابع:
+
+                                                                    powerquery
+(price) => price * 1.1
+
+پس دو عبارت زیر معادل‌اند:
+
+                                                                    powerquery
+List.Transform(Prices, each _ * 1.1)
+
+                                                                    powerquery
+List.Transform(Prices, (price) => price * 1.1)
+
+این اولین مواجهه مستقیم ما با تابع سفارشی است.
+۵. فیلترکردن لیست با List.Select
+
+                                                                    powerquery
+let
+    Amounts = {80, 150, 40, 300},
+    SelectedAmounts = List.Select(
+        Amounts,
+        each _ >= 100
+    )
+in
+    SelectedAmounts
+
+خروجی:
+
+                                                                    powerquery
+{150, 300}
+
+تفاوت:
+
+    List.Transform: مقدار اعضا را تبدیل می‌کند.
+    List.Select: اعضای مطابق شرط را نگه می‌دارد.
+
+۶. مثال عملی: یکسان‌کردن فاصله‌های بین کلمات
+
+در درس قبل گفتیم Text.Trim فاصله‌های داخلی را اصلاح نمی‌کند. حالا ابزار لازم را داریم:
+
+                                                                    powerquery
+let
+    RawName = "  Ali    Ahmadi  ",
+    Parts = Text.Split(RawName, " "),
+    NonEmptyParts = List.Select(
+        Parts,
+        each _ <> ""
+    ),
+    CleanName = Text.Combine(NonEmptyParts, " ")
+in
+    CleanName
+
+خروجی:
+
+                                                                    text
+Ali Ahmadi
+
+مراحل:
+
+    Text.Split متن را بر اساس فاصله به لیست تبدیل می‌کند.
+    List.Select متن‌های خالی را حذف می‌کند.
+    Text.Combine اعضا را با یک فاصله به هم متصل می‌کند.
+
+    این مثال فاصله معمولی را مدیریت می‌کند. تب، نیم‌فاصله و سایر نویسه‌های فاصله‌ای باید متناسب با داده جداگانه بررسی شوند.
+
+بخش دوم: رکوردها در M
+۷. رکورد چیست؟
+
+رکورد مجموعه‌ای از فیلدهای نام‌دار است:
+
+                                                                    powerquery
+[
+    Name = "Sara",
+    Age = 28,
+    City = "Tehran"
+]
+
+مثال:
+
+                                                                    powerquery
+let
+    Customer = [
+        CustomerID = 101,
+        Name = "Sara",
+        City = "Tehran"
+    ]
+in
+    Customer
+
+برخلاف لیست، برای دسترسی به اطلاعات رکورد معمولاً از نام فیلد استفاده می‌کنیم، نه موقعیت.
+۸. دسترسی به فیلد رکورد
+
+                                                                    powerquery
+let
+    Customer = [
+        CustomerID = 101,
+        Name = "Sara",
+        City = "Tehran"
+    ],
+    CustomerCity = Customer[City]
+in
+    CustomerCity
+
+خروجی:
+
+                                                                    text
+Tehran
+
+فیلد دارای فاصله
+
+                                                                    powerquery
+let
+    Customer = [
+        #"Customer Name" = "Sara Ahmadi"
+    ]
+in
+    Customer[#"Customer Name"]
+
+خروجی:
+
+                                                                    text
+Sara Ahmadi
+
+فیلد اختیاری
+
+                                                                    powerquery
+Customer[Phone]?
+
+اگر فیلد Phone وجود نداشته باشد، خروجی null است.
+
+روش دیگر با مقدار پیش‌فرض دلخواه:
+
+                                                                    powerquery
+Record.FieldOrDefault(
+    Customer,
+    "Phone",
+    "Not provided"
+)
+
+دقت کن که این پیش‌فرض برای نبودن فیلد است؛ اگر فیلد موجود باشد و مقدارش null باشد، همان null برمی‌گردد.
+۹. ساختارهای تو‌در‌تو
+
+یک رکورد می‌تواند رکورد و لیست دیگری را نگه دارد:
+
+                                                                    powerquery
+let
+    Customer = [
+        Name = "Sara",
+        Address = [
+            City = "Tehran",
+            PostalCode = "1234567890"
+        ],
+        Orders = {1001, 1002, 1003}
+    ],
+    City = Customer[Address][City],
+    FirstOrder = Customer[Orders]{0}
+in
+    [
+        City = City,
+        FirstOrder = FirstOrder
+    ]
+
+خروجی:
+
+                                                                    powerquery
+[
+    City = "Tehran",
+    FirstOrder = 1001
+]
+
+خواندن این عبارت:
+
+                                                                    powerquery
+Customer[Orders]{0}
+
+به‌ترتیب:
+
+    رکورد Customer را بردار.
+    فیلد Orders را بخوان؛ نتیجه یک لیست است.
+    عضو اول لیست را بردار.
+
+۱۰. ارتباط جدول، لیست و رکورد
+
+مثال زیر را اجرا کن:
+
+                                                                    powerquery
+let
+    Customers = Table.FromRecords(
+        {
+            [CustomerID = 1, Name = "Sara", City = "Tehran"],
+            [CustomerID = 2, Name = "Ali", City = "Shiraz"]
+        }
+    )
+in
+    Customers
+
+اینجا:
+
+    { ... } بیرونی یک لیست است.
+    هر [ ... ] داخل آن یک رکورد است.
+    Table.FromRecords این لیست رکوردها را به جدول تبدیل می‌کند.
+
+سه عبارت مهم:
+عبارت 	نوع خروجی 	معنی
+Customers[Name] 	List 	کل ستون نام
+Customers{0} 	Record 	اولین سطر جدول
+Customers{0}[Name] 	Text 	نام در اولین سطر
+
+مثلاً:
+
+                                                                    powerquery
+Customers[Name]
+
+خروجی:
+
+                                                                    powerquery
+{"Sara", "Ali"}
+
+و:
+
+                                                                    powerquery
+Customers{0}[Name]
+
+خروجی:
+
+                                                                    text
+Sara
+
+نکته کلیدی: معنی [Name] به ساختار سمت چپ بستگی دارد؛ روی رکورد یک فیلد می‌خواند، روی جدول یک ستون.
+بخش سوم: نوشتن توابع سفارشی
+۱۱. تابع سفارشی چیست؟
+
+تابع، عملیاتی است که ورودی می‌گیرد و خروجی تولید می‌کند:
+
+                                                                    text
+ورودی → عملیات → خروجی
+
+مثلاً:
+
+                                                                    text
+نام خام → پاک‌سازی → نام استاندارد
+
+ساختار کلی:
+
+                                                                    powerquery
+(parameter as type) as returnType =>
+    expression
+
+مثال:
+
+                                                                    powerquery
+(price as number) as number =>
+    price * 1.1
+
+بخش‌های آن:
+قسمت 	معنی
+price 	نام پارامتر
+as number 	نوع ورودی
+دومین as number 	نوع خروجی
+=> 	جداکننده پارامترها از بدنه تابع
+price * 1.1 	محاسبه نتیجه
+
+اعلان نوع پارامتر به‌تنهایی تبدیل داده انجام نمی‌دهد؛ مثلاً متن "100" را خودکار به عدد تبدیل نمی‌کند.
+۱۲. تعریف و فراخوانی تابع داخل یک Query
+
+                                                                    powerquery
+let
+    AddTax = (amount as number, taxRate as number) as number =>
+        amount * (1 + taxRate),
+
+    Result = AddTax(1000, 0.1)
+in
+    Result
+
+خروجی:
+
+                                                                    text
+1100
+
+تابع دو ورودی می‌گیرد و یک مقدار برمی‌گرداند.
+۱۳. تابع چندمرحله‌ای با let … in
+
+مثال پاک‌سازی نام فارسی:
+
+                                                                    powerquery
+let
+    CleanName = (value as nullable text) as nullable text =>
+        let
+            Trimmed = Text.Trim(value),
+            FixedYeh = Text.Replace(Trimmed, "ي", "ی"),
+            FixedKaf = Text.Replace(FixedYeh, "ك", "ک")
+        in
+            FixedKaf,
+
+    Result = CleanName("  علي كريمي  ")
+in
+    Result
+
+خروجی:
+
+                                                                    text
+علی کریمی
+
+دو محدوده داریم:
+
+    let بیرونی: تعریف تابع و فراخوانی آن.
+    let درونی: مراحل اجرای تابع برای ورودی دریافتی.
+
+۱۴. ساخت تابع مستقل و قابل استفاده مجدد
+گام اول: یک Blank Query بساز
+
+نام Query را بگذار:
+
+                                                                    text
+fnCleanName
+
+گام دوم: این کد را در Advanced Editor قرار بده
+
+                                                                    powerquery
+(value as nullable text) as nullable text =>
+let
+    Trimmed = Text.Trim(value),
+    FixedYeh = Text.Replace(Trimmed, "ي", "ی"),
+    FixedKaf = Text.Replace(FixedYeh, "ك", "ک")
+in
+    FixedKaf
+
+حالا این Query یک تابع است.
+
+    پیشوند fn فقط قرارداد نام‌گذاری برای خوانایی است، نه الزام زبان M.
+
+گام سوم: در Query دیگر فراخوانی کن
+
+                                                                    powerquery
+let
+    Result = fnCleanName("  سارا احمدي ")
+in
+    Result
+
+خروجی:
+
+                                                                    text
+سارا احمدی
+
+اجرا روی یک ستون
+
+                                                                    powerquery
+Table.TransformColumns(
+    Source,
+    {
+        {
+            "CustomerName",
+            fnCleanName,
+            type nullable text
+        }
+    }
+)
+
+اینجا خود تابع را به Table.TransformColumns می‌دهیم تا برای هر سلول اجرا شود.
+
+تفاوت مهم:
+
+                                                                    powerquery
+fnCleanName
+
+یعنی خود تابع.
+
+                                                                    powerquery
+fnCleanName(" علي ")
+
+یعنی اجرای تابع و دریافت نتیجه.
+بخش چهارم: اجرای یک فرایند روی چند فایل
+۱۵. مسئله عملی
+
+فرض کن پوشه‌ای داری:
+
+                                                                    text
+C:\Sales
+
+و داخل آن چند فایل Excel است:
+
+                                                                    text
+Sales_01.xlsx
+Sales_02.xlsx
+Sales_03.xlsx
+
+در هر فایل یک Excel Table با نام زیر وجود دارد:
+
+                                                                    text
+SalesData
+
+ستون‌های آن:
+OrderID 	CustomerName 	Amount
+ORD-1001 	علي كريمي 	150000
+ORD-1002 	سارا احمدي 	250000
+
+هدف:
+
+    خواندن جدول SalesData از هر فایل؛
+    انتخاب ستون‌های لازم؛
+    تعیین نوع داده؛
+    پاک‌سازی نام مشتری؛
+    ترکیب همه فایل‌ها؛
+    نگهداری نام فایل مبدأ.
+
+فرض این مثال: فایل‌ها ساختار یکسان دارند و SalesData واقعاً یک Excel Table است؛ نام Worksheet به‌تنهایی کافی نیست.
+۱۶. ابتدا تابع تبدیل یک فایل را بساز
+
+یک Blank Query با نام زیر ایجاد کن:
+
+                                                                    text
+fnTransformSalesFile
+
+کد:
+
+                                                                    powerquery
+(fileContent as binary) as table =>
+let
+    Workbook = Excel.Workbook(fileContent, null, true),
+
+    SalesTable = Workbook{
+        [Item = "SalesData", Kind = "Table"]
+    }[Data],
+
+    SelectedColumns = Table.SelectColumns(
+        SalesTable,
+        {"OrderID", "CustomerName", "Amount"}
+    ),
+
+    TypedColumns = Table.TransformColumnTypes(
+        SelectedColumns,
+        {
+            {"OrderID", type text},
+            {"CustomerName", type text},
+            {"Amount", type number}
+        },
+        "en-US"
+    ),
+
+    CleanedNames = Table.TransformColumns(
+        TypedColumns,
+        {
+            {
+                "CustomerName",
+                fnCleanName,
+                type nullable text
+            }
+        }
+    )
+in
+    CleanedNames
+
+این تابع به تابع fnCleanName که قبلاً ساختیم وابسته است.
+ورودی binary چیست؟
+
+محتوای یک فایل در Power Query معمولاً به‌شکل binary دریافت می‌شود.
+
+                                                                    powerquery
+(fileContent as binary) as table =>
+
+یعنی:
+
+    محتوای یک فایل را بگیر و یک جدول برگردان.
+
+این خط را دقیق بخوان
+
+                                                                    powerquery
+Workbook{[Item = "SalesData", Kind = "Table"]}[Data]
+
+    Workbook جدول فهرست اشیای فایل Excel است.
+    رکورد زیر، معیار انتخاب سطر را مشخص می‌کند:
+
+                                                                    powerquery
+   [Item = "SalesData", Kind = "Table"]
+
+    { ... } سطر منطبق را انتخاب می‌کند.
+    [Data] جدول داده داخل آن سطر را برمی‌گرداند.
+
+این نمونه‌ای واقعی از ترکیب جدول، رکورد و دسترسی با آکولاد است.
+چرا "en-US"؟
+
+فرهنگ تبدیل برای تفسیر عددهایی که به‌صورت متن آمده‌اند مهم است. این نمونه فرض می‌کند قالب عددی با en-US سازگار است؛ برای فایل‌های واقعی، فرهنگ مناسب داده را انتخاب کن.
