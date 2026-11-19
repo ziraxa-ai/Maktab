@@ -30,7 +30,7 @@ NextMonth 	=EDATE(MonthStart,1)
 
 پیش از نوشتن فرمول، با دست مشخص کن کدام EntryIDها باید وارد جمع شوند. سپس بنویس:
 
-                                                                    excel
+
 =SUMIFS(tblCosts[Amount],tblCosts[Project],SelProject,tblCosts[Contractor],SelContractor,tblCosts[Status],"Posted",tblCosts[PostingDate],">="&MonthStart,tblCosts[PostingDate],"<"&NextMonth)
 
 فرمول را این‌طور بخوان: مبلغ را جمع بزن، فقط اگر همه شرط‌ها در همان ردیف درست باشند. دو بار آوردن PostingDate عمدی است؛ یک شرط ابتدای بازه و دیگری انتهای آن را کنترل می‌کند.
@@ -43,12 +43,12 @@ NextMonth 	=EDATE(MonthStart,1)
 
 تعداد ثبت‌های واجد شرایط را در سلولی به نام MatchedCount بنویس:
 
-                                                                    excel
+
 =COUNTIFS(tblCosts[Project],SelProject,tblCosts[Contractor],SelContractor,tblCosts[Status],"Posted",tblCosts[PostingDate],">="&MonthStart,tblCosts[PostingDate],"<"&NextMonth)
 
 میانگین مبلغ هر ثبت:
 
-                                                                    excel
+
 =IF(MatchedCount=0,"",AVERAGEIFS(tblCosts[Amount],tblCosts[Project],SelProject,tblCosts[Contractor],SelContractor,tblCosts[Status],"Posted",tblCosts[PostingDate],">="&MonthStart,tblCosts[PostingDate],"<"&NextMonth))
 
 انتظار: تعداد 3 و میانگین 500 USD؛ برگشت هزینه هم یک ثبت است. این میانگین، میانگین مبلغ هر ثبت است، نه میانگین قیمت واحد.
@@ -58,7 +58,7 @@ NextMonth 	=EDATE(MonthStart,1)
 
 در شیت Matrix، پروژه‌های A و B را در A2:A3 و پیمانکارهای CTR-01 و CTR-02 را در B1:C1 قرار بده. در B2 بنویس و با Copy/Paste به چهار خانه منتقل کن:
 
-                                                                    excel
+
 =SUMIFS(tblCosts[Amount],tblCosts[Project],$A2,tblCosts[Contractor],B$1,tblCosts[Status],"Posted",tblCosts[PostingDate],">="&MonthStart,tblCosts[PostingDate],"<"&NextMonth)
 
 $A2 پروژه را همیشه از ستون A می‌خواند؛ B$1 پیمانکار را همیشه از ردیف ۱. هر خانه تقاطع یک پروژه AND یک پیمانکار است.
@@ -71,7 +71,7 @@ B 	400 	0
 
 نام سلول جمع هزینه را ActualCost بگذار. برای کارت وضعیت داشبورد بنویس:
 
-                                                                    excel
+
 =IFS(MatchedCount=0,"NO_RECORDS",ActualCost<0,"NET_CREDIT",ActualCost=0,"NET_ZERO",TRUE,"NET_COST")
 
 IFS برخلاف SUMIFS ردیف‌ها را جمع نمی‌زند؛ اولین شرط درست را انتخاب می‌کند. به همین دلیل MatchedCount=0 باید قبل از ActualCost=0 باشد. TRUE در پایان یعنی «سایر حالت‌ها». اگر نسخه‌ات IFS ندارد، همین ترتیب را با IFهای تودرتو پیاده کن.
