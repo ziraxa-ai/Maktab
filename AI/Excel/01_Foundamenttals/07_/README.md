@@ -23,7 +23,7 @@
 
 نام جدول:
 
-                                                                    text
+                                                                    
 tblPrices
 
 MaterialCode 	MaterialName 	Unit 	Currency 	UnitPrice
@@ -46,7 +46,7 @@ B006 	MAT-006 	30
 این پایگاه تمرینی، برای هر کد فقط یک قیمت جاری، یک واحد و یک ارز دارد. در پروژه واقعی این فرض را باید بررسی کنیم.
 ۲. ساختار XLOOKUP
 
-                                                                    excel
+                                                                    
 =XLOOKUP(lookup_value,lookup_array,return_array,[if_not_found],[match_mode],[search_mode])
 
 آرگومان 	وظیفه
@@ -60,7 +60,7 @@ search_mode 	جهت و روش جستجو
 
 در ستون جدید UnitPrice جدول BOQ:
 
-                                                                    excel
+                                                                    
 =XLOOKUP([@MaterialCode],tblPrices[MaterialCode],tblPrices[UnitPrice],"NOT_FOUND",0,1)
 
 معنی:
@@ -87,10 +87,10 @@ MAT-006 	18
 
 با همین الگو دو ستون دیگر بساز:
 
-                                                                    excel
+                                                                    
 =XLOOKUP([@MaterialCode],tblPrices[MaterialCode],tblPrices[MaterialName],"NOT_FOUND",0)
 
-                                                                    excel
+                                                                    
 =XLOOKUP([@MaterialCode],tblPrices[MaterialCode],tblPrices[Unit],"NOT_FOUND",0)
 
 ۳. if_not_found؛ نبودن داده را پنهان نکن
