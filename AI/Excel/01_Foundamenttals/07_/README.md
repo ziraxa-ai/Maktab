@@ -97,19 +97,19 @@ MAT-006 	18
 
 برای قیمت این فرمول خطرناک است:
 
-                                                                    excel
+                                                                    
 =XLOOKUP([@MaterialCode],tblPrices[MaterialCode],tblPrices[UnitPrice],0)
 
 چون کد ناموجود را به قیمت صفر تبدیل می‌کند؛ در نتیجه ممکن است هزینه پروژه کمتر از واقع گزارش شود.
 
 برای مرحله بررسی، استفاده کن:
 
-                                                                    text
+
 NOT_FOUND
 
 یا برای خروجی عددی قابل‌کنترل:
 
-                                                                    excel
+
 =XLOOKUP([@MaterialCode],tblPrices[MaterialCode],tblPrices[UnitPrice],NA(),0)
 
 در حالت دوم، کد ناموجود #N/A می‌دهد.
@@ -125,11 +125,6 @@ NOT_FOUND
 
 اگر MAT-003 دو بار در پایگاه باشد، جستجوی عادی اولین تطبیق را برمی‌گرداند.
 
-فرمول ظاهراً سالم است، اما ممکن است قیمت انتخاب‌شده اشتباه باشد.
-
-در tblPrices ستون KeyCount بساز:
-
-                                                                    excel
 =COUNTIF(tblPrices[MaterialCode],[@MaterialCode])
 
 در پایگاه قیمت جاری، تمام مقادیر این ستون باید برابر ۱ باشند.
@@ -149,9 +144,6 @@ MAT-003 	2026-03-01 	4.2
 
 تاریخ‌ها را به‌صورت تاریخ واقعی اکسل وارد کن.
 
-فرمول:
-
-                                                                    excel
 =XLOOKUP("MAT-003",tblPriceHistory[MaterialCode],tblPriceHistory[UnitPrice],"NOT_FOUND",0,-1)
 
 نتیجه:
