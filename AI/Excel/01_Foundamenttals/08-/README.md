@@ -43,14 +43,14 @@ NextMonth 	=EDATE(MonthStart,1)
 
 تعداد ثبت‌های واجد شرایط را در سلولی به نام MatchedCount بنویس:
 
-
+```
 =COUNTIFS(tblCosts[Project],SelProject,tblCosts[Contractor],SelContractor,tblCosts[Status],"Posted",tblCosts[PostingDate],">="&MonthStart,tblCosts[PostingDate],"<"&NextMonth)
-
+```
 میانگین مبلغ هر ثبت:
 
-
+```
 =IF(MatchedCount=0,"",AVERAGEIFS(tblCosts[Amount],tblCosts[Project],SelProject,tblCosts[Contractor],SelContractor,tblCosts[Status],"Posted",tblCosts[PostingDate],">="&MonthStart,tblCosts[PostingDate],"<"&NextMonth))
-
+```
 انتظار: تعداد 3 و میانگین 500 USD؛ برگشت هزینه هم یک ثبت است. این میانگین، میانگین مبلغ هر ثبت است، نه میانگین قیمت واحد.
 
 چرا تعداد را کنار جمع نشان می‌دهیم؟ چون SUMIFS هم برای «هیچ سندی نیست» و هم برای «هزینه و برگشت همدیگر را خنثی کرده‌اند» صفر می‌دهد. COUNTIFS این دو را جدا می‌کند. کنترل عددی‌بودن مبلغ را هم حذف نکن: شمارش بر اساس شرط‌ها می‌تواند ردیفی با مبلغ متنی را بشمارد، درحالی‌که آن مبلغ در جمع وارد نشده است.
